@@ -124,21 +124,32 @@
         }
         .nav-links {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             flex-wrap: wrap;
             font-size: 14px;
+            align-items: center;
         }
-        .nav-links a {
+        .nav-links a, .nav-login-btn {
             color: #e2e8f0;
             text-decoration: none;
             font-weight: 500;
-            padding: 5px 8px;
-            border-radius: 4px;
+            padding: 6px 10px;
+            border-radius: 5px;
             transition: 0.2s;
+            cursor: pointer;
         }
         .nav-links a:hover {
             color: var(--gold-light);
             background: rgba(255,255,255,0.08);
+        }
+        .nav-login-btn {
+            background: var(--gold);
+            color: #ffffff;
+            border: none;
+            font-weight: 600;
+        }
+        .nav-login-btn:hover {
+            background: #b45309;
         }
 
         /* 3. Hero Banner */
@@ -288,9 +299,6 @@
             color: var(--navy-mid);
             text-decoration: none;
         }
-        .course-link:hover {
-            text-decoration: underline;
-        }
 
         /* Curriculum Roadmap */
         .step-row {
@@ -384,9 +392,14 @@
             cursor: pointer;
             transition: 0.2s;
         }
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             background: var(--navy-mid);
             border-color: var(--navy-mid);
+        }
+        .btn-primary:disabled {
+            background: #94a3b8;
+            border-color: #94a3b8;
+            cursor: not-allowed;
         }
         .btn-outline {
             background: transparent;
@@ -403,7 +416,7 @@
             border-color: var(--danger);
         }
 
-        /* Two Column Layout for Feedback & Contact */
+        /* Two Column Layout */
         .two-col-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -435,9 +448,9 @@
         }
 
         /* Form Inputs */
-        input[type="text"], input[type="email"], select, textarea {
+        input[type="text"], input[type="tel"], input[type="password"], select, textarea {
             width: 100%;
-            padding: 11px 13px;
+            padding: 12px 14px;
             border: 1.5px solid var(--border);
             border-radius: 6px;
             font-size: 15px;
@@ -446,12 +459,18 @@
             resize: vertical;
             background: #ffffff;
         }
-        input:focus, select:focus, textarea:focus {
+        input:read-only, textarea:read-only {
+            background: #e2e8f0;
+            color: #334155;
+            font-weight: 600;
+            cursor: not-allowed;
+        }
+        input:focus:not(:read-only), select:focus, textarea:focus:not(:read-only) {
             outline: none;
             border-color: var(--navy);
         }
 
-        /* Quiz & Portal Containers */
+        /* Containers */
         .assessment-container {
             max-width: 840px;
             margin: 30px auto;
@@ -460,6 +479,15 @@
             border-radius: 10px;
             border: 1px solid #cbd5e1;
             box-shadow: 0 8px 25px rgba(15, 41, 74, 0.08);
+        }
+        .auth-box {
+            max-width: 480px;
+            margin: 40px auto;
+            background: var(--paper);
+            padding: 32px;
+            border-radius: 10px;
+            border: 2px solid var(--navy);
+            box-shadow: 0 10px 30px rgba(15, 41, 74, 0.1);
         }
         .progress-bar {
             width: 100%;
@@ -529,6 +557,28 @@
             color: var(--danger);
             border: 1px solid #fca5a5;
         }
+        .student-id-card {
+            background: linear-gradient(135deg, #0f294a 0%, #1e3a8a 100%);
+            color: #ffffff;
+            padding: 18px 22px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            border-left: 5px solid var(--gold);
+        }
+        .locked-banner {
+            background: #f0fdf4;
+            border: 1.5px solid #86efac;
+            color: #166534;
+            padding: 14px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
         .peer-card {
             border: 1px solid #cbd5e1;
             padding: 18px;
@@ -558,7 +608,7 @@
         @media (max-width: 720px) {
             .hero-inner h2 { font-size: 23px; }
             .brand-title { font-size: 20px; }
-            .charter-card, .section-block, .assessment-container { padding: 20px; }
+            .charter-card, .section-block, .assessment-container, .auth-box { padding: 20px; }
         }
     </style>
 </head>
@@ -584,9 +634,10 @@
         </div>
         <nav class="nav-links" id="main-nav">
             <a href="#about-academy">परिचय</a>
-            <a href="#courses-section">कोर्सेज (Courses)</a>
+            <a href="#courses-section">कोर्सेज</a>
             <a href="#admission-charter">प्रवेश परीक्षा</a>
             <a href="#feedback-contact">फीडबैक व संपर्क</a>
+            <button class="nav-login-btn" onclick="openLoginView()">🔐 छात्र लॉगिन</button>
         </nav>
     </div>
 </header>
@@ -603,8 +654,8 @@
             <h2>अंधविश्वास और भीड़ की सोच से बाहर निकलकर, तर्क और आधुनिक कौशल से अपना भविष्य बनाएं</h2>
             <p>Logic Future Academy में हम पहले आपकी तार्किक सोच (Logical Thinking) की परीक्षा लेते हैं, और फिर आपको IT, AI कोडिंग, नेटवर्किंग और सिक्योरिटी सिस्टम्स जैसे वास्तविक कौशल सिखाते हैं।</p>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
-                <a href="#admission-charter" class="btn-primary" style="background: var(--gold); border-color: var(--gold); text-decoration: none;">प्रवेश परीक्षा शुरू करें ↓</a>
-                <a href="#courses-section" class="btn-primary" style="background: rgba(255,255,255,0.12); border-color: #ffffff; text-decoration: none;">सभी कोर्सेज देखें</a>
+                <a href="#admission-charter" class="btn-primary" style="background: var(--gold); border-color: var(--gold); text-decoration: none;">नया प्रवेश (100 प्रश्न परीक्षा) ↓</a>
+                <button onclick="openLoginView()" class="btn-primary" style="background: rgba(255,255,255,0.12); border-color: #ffffff;">पहले से पंजीकृत छात्र लॉगिन ➔</button>
             </div>
         </div>
     </section>
@@ -627,14 +678,11 @@
             </div>
         </div>
 
-        <!-- ===================================================== -->
-        <!-- COURSES & SKILL TRAINING CATALOG                      -->
-        <!-- ===================================================== -->
+        <!-- COURSES & SKILL TRAINING CATALOG -->
         <section id="courses-section" class="section-block">
             <h2 class="section-heading">अकादमी के प्रमुख पाठ्यक्रम (Courses & Technical Modules)</h2>
             <p style="color: var(--text-muted); margin-top: 0;">सभी तकनीकी कोर्सेज में प्रवेश पाने के लिए पहले 100 प्रश्नों की तार्किक योग्यता परीक्षा उत्तीर्ण करना अनिवार्य है। आगे इस सूची में और भी नए व्यावहारिक विषय जोड़े जाएंगे।</p>
 
-            <!-- Category A: IT, AI & Software Development -->
             <div class="course-category-title">💻 विभाग 1: IT, AI कोडिंग और सॉफ्टवेयर डेवलपमेंट</div>
             <div class="courses-grid">
                 <div class="course-card">
@@ -674,7 +722,6 @@
                 </div>
             </div>
 
-            <!-- Category B: Security Systems & Networking -->
             <div class="course-category-title">🔌 विभाग 2: सिक्योरिटी सिस्टम्स और नेटवर्किंग इंजीनियरिंग</div>
             <div class="courses-grid">
                 <div class="course-card">
@@ -728,22 +775,20 @@
             <div class="step-row">
                 <div class="step-badge">02</div>
                 <div>
-                    <strong>चरण 2: दैनिक व्यावहारिक अभ्यास (Daily Truth-Seeking & Skill Tasks)</strong>
-                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">100 प्रश्नों का पड़ाव पार करते ही मुख्य पोर्टल अनलॉक होगा, जहाँ आपको सत्य की जांच और तकनीकी अभ्यास के कार्य मिलेंगे।</p>
+                    <strong>चरण 2: एकल छात्र ID एवं सुरक्षित पंजीकरण (1 Phone = 1 Account)</strong>
+                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">100 प्रश्न पूरे करने पर छात्र अपने मोबाइल नंबर और गुप्त कोड से अपनी स्थायी छात्र ID बनाएगा, ताकि कोई फेक अकाउंट न बन सके।</p>
                 </div>
             </div>
             <div class="step-row" style="margin-bottom: 0;">
                 <div class="step-badge">03</div>
                 <div>
-                    <strong>चरण 3: सहपाठी समीक्षा (Peer Review System)</strong>
-                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">आप अपने समूह के अन्य साथियों के तर्कों और कार्यों का परीक्षण करेंगे और सामूहिक रूप से आगे बढ़ेंगे।</p>
+                    <strong>चरण 3: दैनिक असाइनमेंट और सहपाठी समीक्षा (Daily Task & Peer Fact-Check)</strong>
+                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">प्रत्येक छात्र दिन में केवल एक बार अपना असाइनमेंट जमा करेगा और अपने बाकी साथियों के तर्कों की निष्पक्ष जांच करेगा।</p>
                 </div>
             </div>
         </section>
 
-        <!-- ===================================================== -->
-        <!-- STRICT ADMISSION CHARTER (ENTRY GATE)                 -->
-        <!-- ===================================================== -->
+        <!-- STRICT ADMISSION CHARTER (ENTRY GATE) -->
         <section id="admission-charter" class="charter-card">
             <h2 class="section-heading">प्रवेश घोषणापत्र एवं अनिवार्य शर्तें (Admission Charter)</h2>
             
@@ -771,12 +816,8 @@
             </div>
         </section>
 
-        <!-- ===================================================== -->
-        <!-- FEEDBACK & CONTACT SECTION                            -->
-        <!-- ===================================================== -->
+        <!-- FEEDBACK & CONTACT SECTION -->
         <div id="feedback-contact" class="two-col-grid">
-            
-            <!-- Feedback Form Card -->
             <section class="section-block" style="margin-bottom: 0;">
                 <h2 class="section-heading">छात्र फीडबैक एवं सुझाव (Feedback)</h2>
                 <p style="color: var(--text-muted); font-size: 14.5px; margin-top: 0;">पोर्टल, प्रश्नों या किसी नए तकनीकी कोर्स के बारे में अपना विचार और सुझाव भेजें:</p>
@@ -799,7 +840,6 @@
                 <button class="btn-primary" id="fb-submit-btn" style="width: 100%;" onclick="submitFeedback()">फीडबैक भेजें</button>
             </section>
 
-            <!-- Contact & Social Media Card -->
             <section class="section-block" style="margin-bottom: 0;">
                 <h2 class="section-heading">संपर्क एवं सोशल मीडिया (Contact)</h2>
                 <p style="color: var(--text-muted); font-size: 14.5px; margin-top: 0;">प्रशिक्षण, तकनीकी मार्गदर्शन या संस्थान से जुड़ने के लिए आधिकारिक माध्यमों का उपयोग करें:</p>
@@ -808,22 +848,21 @@
                     <p style="margin: 0 0 8px 0;"><strong>📧 आधिकारिक ईमेल (Email):</strong><br>
                     <a href="mailto:logicfutureacademy@gmail.com" style="color: var(--navy-mid); font-weight: 600; text-decoration: none;">logicfutureacademy@gmail.com</a></p>
                     <p style="margin: 0;"><strong>📍 केंद्र स्थान:</strong><br>
-                    <span style="color: var(--text-muted);">Delhi (ऑनलाइन एवं व्यावहारिक प्रशिक्षण)</span></p>
+                    <span style="color: var(--text-muted);">पुणे, महाराष्ट्र (ऑनलाइन एवं व्यावहारिक प्रशिक्षण)</span></p>
                 </div>
 
                 <strong>🌐 सोशल मीडिया पेज (Official Social Links):</strong>
                 <div class="social-links-list">
-                    <a href="https://www.youtube.com/@Logic & Future Academy" target="_blank" rel="noopener" class="social-btn">
-                        <span>▶️ YouTube Channel (@Logic & Future Academy)</span>
+                    <a href="https://www.youtube.com/@amartomar700" target="_blank" rel="noopener" class="social-btn">
+                        <span>▶️ YouTube Channel (@amartomar700)</span>
                         <span>विज़िट करें ↗</span>
                     </a>
-                    <a href="https://www.instagram.com/Logic & Future Academy" target="_blank" rel="noopener" class="social-btn">
-                        <span>📸 Instagram Page (@Logic & Future Academy)</span>
+                    <a href="https://www.instagram.com/amartomar700" target="_blank" rel="noopener" class="social-btn">
+                        <span>📸 Instagram Page (@amartomar700)</span>
                         <span>विज़िट करें ↗</span>
                     </a>
                 </div>
             </section>
-
         </div>
 
     </div>
@@ -855,34 +894,94 @@
 </div>
 
 <!-- ========================================================= -->
-<!-- VIEW 3: UNLOCKED DAILY TASK & PEER REVIEW PORTAL          -->
+<!-- VIEW 2B: FIRST-TIME STUDENT REGISTRATION (100 Q PASSED)   -->
+<!-- ========================================================= -->
+<div id="register-section" class="auth-box hidden">
+    <h2 style="color: var(--success); font-family: 'Noto Serif Devanagari', serif; margin-top: 0;">🎉 100 प्रश्न पूरे हुए! अपनी छात्र ID बनाएं</h2>
+    <p style="font-size: 14.5px; color: var(--text-muted);">सुरक्षा और प्राइवेसी के लिए आपका मोबाइल नंबर और सीक्रेट कोड आपकी स्थायी पहचान होगी। एक मोबाइल नंबर से केवल एक ही अकाउंट बनेगा।</p>
+    
+    <label><strong>1. आपका पूरा नाम (स्थायी):</strong></label>
+    <input type="text" id="reg-name" placeholder="उदाहरण: आरव शर्मा">
+
+    <label><strong>2. आपका 10-अंकों का मोबाइल नंबर (लॉगिन ID):</strong></label>
+    <input type="tel" id="reg-phone" maxlength="10" placeholder="उदाहरण: 9876543210">
+
+    <label><strong>3. अपना गुप्त कोड बनाएं (Secret PIN - किसी को न बताएं):</strong></label>
+    <input type="password" id="reg-code" maxlength="8" placeholder="4 से 8 अंकों का गुप्त कोड">
+
+    <button class="btn-primary" id="reg-btn" style="width: 100%; margin-top: 5px;" onclick="registerStudent()">स्थायी छात्र ID बनाएं और पोर्टल खोलें ➔</button>
+    
+    <p style="text-align: center; margin-top: 15px; font-size: 14px;">
+        पहले से ID बनी हुई है? <a href="#" onclick="openLoginView(); return false;" style="color: var(--navy-mid); font-weight: 600;">यहाँ लॉगिन करें</a>
+    </p>
+</div>
+
+<!-- ========================================================= -->
+<!-- VIEW 2C: SECURE STUDENT LOGIN (CODE FIRST, THEN PHONE)    -->
+<!-- ========================================================= -->
+<div id="login-section" class="auth-box hidden">
+    <h2 style="color: var(--navy); font-family: 'Noto Serif Devanagari', serif; margin-top: 0;">🔐 सुरक्षित छात्र लॉगिन</h2>
+    <p style="font-size: 14.5px; color: var(--text-muted);">पोर्टल अनलॉक करने के लिए पहले अपना गुप्त कोड (Secret Code) और फिर अपना पंजीकृत मोबाइल नंबर डालें:</p>
+
+    <label><strong>1. आपका गुप्त कोड (Secret Code):</strong></label>
+    <input type="password" id="login-code" placeholder="अपना गुप्त कोड डालें">
+
+    <label><strong>2. आपका पंजीकृत मोबाइल नंबर:</strong></label>
+    <input type="tel" id="login-phone" maxlength="10" placeholder="10-अंकों का मोबाइल नंबर">
+
+    <button class="btn-primary" id="login-btn" style="width: 100%; margin-top: 5px;" onclick="loginStudent()">पोर्टल अनलॉक करें ➔</button>
+
+    <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 13.5px;">
+        <a href="#" onclick="backToHome(); return false;" style="color: var(--text-muted);">← मुख्य पृष्ठ</a>
+        <a href="#admission-charter" onclick="backToHome()" style="color: var(--navy-mid); font-weight: 600;">नया प्रवेश लें</a>
+    </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- VIEW 3: UNLOCKED & LOCKED-IDENTITY DAILY PORTAL           -->
 <!-- ========================================================= -->
 <div id="portal-section" class="assessment-container hidden">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-        <h2 style="color: var(--success); font-family: 'Noto Serif Devanagari', serif; margin: 0;">🎓 बधाई हो! आपका मुख्य प्रशिक्षण पोर्टल अनलॉक हो गया है</h2>
-        <button onclick="backToHome()" style="background: none; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;">← मुख्य पृष्ठ</button>
-    </div>
-    <p>आपने 100 तार्किक प्रश्नों का मूल्यांकन सफलतापूर्वक पूरा कर लिया है। अब आप दैनिक व्यावहारिक कार्य पूरे कर सकते हैं और अन्य साथियों के तर्कों की समीक्षा कर सकते हैं।</p>
-    
-    <div style="margin-bottom: 20px; background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #cbd5e1;">
-        <label><strong>छात्र का पूरा नाम / पंजीयन क्रमांक (Student Name / ID):</strong></label>
-        <input type="text" id="student-name" placeholder="उदाहरण: आरव शर्मा (ID-01)" style="margin-bottom: 0;" onchange="saveStudentName()">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+        <h2 style="color: var(--success); font-family: 'Noto Serif Devanagari', serif; margin: 0;">🎓 मुख्य प्रशिक्षण एवं कार्य पोर्टल</h2>
+        <button onclick="logoutStudent()" style="background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;">🔒 लॉगआउट करें</button>
     </div>
 
+    <!-- Verified Locked Student ID Card -->
+    <div class="student-id-card">
+        <div>
+            <div style="font-size: 12px; color: var(--gold-light); text-transform: uppercase; letter-spacing: 0.5px;">सत्यापित छात्र प्रोफ़ाइल (Verified & Locked)</div>
+            <div style="font-size: 19px; font-weight: 700;" id="display-student-name">---</div>
+            <div style="font-size: 13.5px; color: #cbd5e1;" id="display-student-meta">ID: --- | मोबाइल: ---</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.15); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;">
+            ✅ एकल खाता सक्रिय
+        </div>
+    </div>
+
+    <!-- Daily Assignment Box (Locks after 1 submission per day) -->
     <div class="case-study-box">
         <span class="case-label">आज का व्यावहारिक कार्य (Daily Assignment)</span>
         <h3 style="margin: 6px 0; color: var(--navy);">सत्य की जाँच (Fact-Checking Exercise)</h3>
-        <p style="margin-top: 0;">आज अपने आस-पास, परिवार या सोशल मीडिया पर चल रही किसी एक ऐसी मान्यता, खबर या अफवाह का विश्लेषण करें जिसे लोग बिना सोचे मान रहे हैं। तर्क और प्रमाण के साथ उसका वास्तविक सच नीचे लिखें:</p>
-        <textarea id="task-answer" rows="4" placeholder="अपना तार्किक विश्लेषण यहाँ विस्तार से लिखें..."></textarea>
-        <button class="btn-primary" id="submit-task-btn" onclick="submitDailyTask()">असाइनमेंट जमा करें</button>
+        <p style="margin-top: 0;">आज अपने आस-पास, परिवार या सोशल मीडिया पर चल रही किसी एक ऐसी मान्यता, खबर या अफवाह का विश्लेषण करें जिसे लोग बिना सोचे मान रहे हैं। तर्क और प्रमाण के साथ उसका वास्तविक सच नीचे लिखें (यह दिन में केवल एक बार ही जमा होगा):</p>
+        
+        <div id="task-input-area">
+            <textarea id="task-answer" rows="4" placeholder="अपना तार्किक विश्लेषण यहाँ विस्तार से लिखें..."></textarea>
+            <button class="btn-primary" id="submit-task-btn" onclick="submitDailyTask()">असाइनमेंट स्थायी रूप से जमा करें</button>
+        </div>
+
+        <div id="task-locked-area" class="locked-banner hidden">
+            ✅ आपने आज का असाइनमेंट सफलतापूर्वक जमा कर दिया है। सुरक्षा नियमों के तहत आज इसे दोबारा बदला या भेजा नहीं जा सकता। अगला असाइनमेंट कल खुलेगा।
+        </div>
     </div>
 
     <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 28px 0;">
 
+    <!-- Peer Review Section -->
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <h3 style="margin: 0; color: var(--navy);">सहपाठी समीक्षा (Peer Fact-Check Review)</h3>
-        <button class="btn-primary" style="padding: 8px 16px; font-size: 14px;" onclick="loadPeerTasks()">🔄 नए जवाब लोड करें</button>
+        <button class="btn-primary" style="padding: 8px 16px; font-size: 14px;" onclick="loadPeerTasks()">🔄 साथियों के जवाब लोड करें</button>
     </div>
+    <p style="font-size: 14px; color: var(--text-muted); margin-top: 5px;">नीचे केवल आपके अन्य साथियों के जवाब दिखेंगे (आपका अपना जवाब छिपा रहेगा)। प्रत्येक साथी के उत्तर पर आप केवल एक बार समीक्षा दे सकते हैं।</p>
     <div id="peer-reviews-container">
         <p style="color: var(--text-muted);">साथियों के जवाब लोड हो रहे हैं...</p>
     </div>
@@ -910,22 +1009,37 @@
     let currentIndex = parseInt(localStorage.getItem('completedQuestions')) || 0;
     const totalRequired = typeof questionsData !== 'undefined' ? questionsData.length : 100;
 
-    function init() {
-        const savedName = localStorage.getItem('studentName');
-        if (savedName) document.getElementById('student-name').value = savedName;
-        
-        // हमेशा पहले पूरा Academic Main Page दिखाएं
-        document.getElementById('landing-page').classList.remove('hidden');
+    // लॉगिन किए हुए छात्र का डेटा
+    let currentStudent = JSON.parse(localStorage.getItem('lfa_verified_student')) || null;
+
+    function hideAllViews() {
+        document.getElementById('landing-page').classList.add('hidden');
         document.getElementById('quiz-section').classList.add('hidden');
+        document.getElementById('register-section').classList.add('hidden');
+        document.getElementById('login-section').classList.add('hidden');
         document.getElementById('portal-section').classList.add('hidden');
     }
 
-    function saveStudentName() {
-        const name = document.getElementById('student-name').value.trim();
-        if (name) {
-            localStorage.setItem('studentName', name);
-            loadPeerTasks();
+    function init() {
+        hideAllViews();
+        // मुख्य पेज हमेशा दिखेगा
+        document.getElementById('landing-page').classList.remove('hidden');
+    }
+
+    function backToHome() {
+        hideAllViews();
+        document.getElementById('landing-page').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openLoginView() {
+        hideAllViews();
+        if (currentStudent) {
+            unlockPortal();
+        } else {
+            document.getElementById('login-section').classList.remove('hidden');
         }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function acceptAndStart() {
@@ -935,18 +1049,14 @@
             return;
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (currentIndex >= totalRequired) {
+        if (currentStudent) {
             unlockPortal();
+        } else if (currentIndex >= totalRequired) {
+            hideAllViews();
+            document.getElementById('register-section').classList.remove('hidden');
         } else {
             startQuiz();
         }
-    }
-
-    function backToHome() {
-        document.getElementById('quiz-section').classList.add('hidden');
-        document.getElementById('portal-section').classList.add('hidden');
-        document.getElementById('landing-page').classList.remove('hidden');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function exitPortal() {
@@ -961,7 +1071,7 @@
     }
 
     function startQuiz() {
-        document.getElementById('landing-page').classList.add('hidden');
+        hideAllViews();
         document.getElementById('quiz-section').classList.remove('hidden');
         loadQuestion();
     }
@@ -1007,17 +1117,250 @@
         currentIndex++;
         localStorage.setItem('completedQuestions', currentIndex);
         if (currentIndex >= totalRequired) {
-            unlockPortal();
+            hideAllViews();
+            if (currentStudent) {
+                unlockPortal();
+            } else {
+                document.getElementById('register-section').classList.remove('hidden');
+            }
         } else {
             loadQuestion();
         }
     }
 
+    // नया छात्र पंजीकरण (1 Mobile = 1 Account)
+    async function registerStudent() {
+        const name = document.getElementById('reg-name').value.trim();
+        const phone = document.getElementById('reg-phone').value.trim();
+        const code = document.getElementById('reg-code').value.trim();
+
+        if (!name || phone.length !== 10 || isNaN(phone) || code.length < 4) {
+            alert("कृपया सही पूरा नाम, 10-अंकों का मोबाइल नंबर और कम से कम 4 अंकों का गुप्त कोड डालें।");
+            return;
+        }
+
+        const btn = document.getElementById('reg-btn');
+        btn.disabled = true; btn.innerText = "छात्र ID बनाई जा रही है...";
+
+        try {
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "registerStudent", fullName: name, phone: phone, secretCode: code })
+            });
+            const result = await res.json();
+
+            if (result.status === "exists") {
+                alert(result.message);
+                openLoginView();
+            } else if (result.status === "success") {
+                currentStudent = {
+                    studentId: result.studentId,
+                    fullName: result.fullName,
+                    phone: result.phone
+                };
+                localStorage.setItem('lfa_verified_student', JSON.stringify(currentStudent));
+                alert(`बधाई हो ${result.fullName}! आपकी स्थायी छात्र ID (${result.studentId}) बन गई है। अपना कोड और नंबर सुरक्षित रखें।`);
+                unlockPortal();
+            }
+        } catch (err) {
+            alert("सर्वर से जुड़ने में समस्या आई। कृपया पुनः प्रयास करें।");
+        }
+        btn.disabled = false; btn.innerText = "स्थायी छात्र ID बनाएं और पोर्टल खोलें ➔";
+    }
+
+    // छात्र लॉगिन (Code पहले, Phone बाद में)
+    async function loginStudent() {
+        const code = document.getElementById('login-code').value.trim();
+        const phone = document.getElementById('login-phone').value.trim();
+
+        if (!code || phone.length !== 10) {
+            alert("कृपया पहले अपना गुप्त कोड और फिर 10-अंकों का मोबाइल नंबर डालें।");
+            return;
+        }
+
+        const btn = document.getElementById('login-btn');
+        btn.disabled = true; btn.innerText = "जाँच की जा रही है...";
+
+        try {
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "loginStudent", secretCode: code, phone: phone })
+            });
+            const result = await res.json();
+
+            if (result.status === "success") {
+                currentStudent = {
+                    studentId: result.studentId,
+                    fullName: result.fullName,
+                    phone: result.phone
+                };
+                localStorage.setItem('lfa_verified_student', JSON.stringify(currentStudent));
+                document.getElementById('login-code').value = '';
+                document.getElementById('login-phone').value = '';
+                unlockPortal();
+            } else {
+                alert(result.message);
+            }
+        } catch (err) {
+            alert("लॉगिन करने में समस्या आई। कृपया इंटरनेट कनेक्शन जांचें।");
+        }
+        btn.disabled = false; btn.innerText = "पोर्टल अनलॉक करें ➔";
+    }
+
+    function logoutStudent() {
+        localStorage.removeItem('lfa_verified_student');
+        currentStudent = null;
+        openLoginView();
+    }
+
     function unlockPortal() {
-        document.getElementById('landing-page').classList.add('hidden');
-        document.getElementById('quiz-section').classList.add('hidden');
+        if (!currentStudent) {
+            openLoginView();
+            return;
+        }
+        hideAllViews();
         document.getElementById('portal-section').classList.remove('hidden');
+
+        // लॉक की गई पहचान दिखाएं
+        const maskedPhone = currentStudent.phone.slice(0, 2) + "******" + currentStudent.phone.slice(-2);
+        document.getElementById('display-student-name').innerText = currentStudent.fullName;
+        document.getElementById('display-student-meta').innerText = `छात्र ID: ${currentStudent.studentId} | मोबाइल: ${maskedPhone}`;
+
+        // जांचें कि क्या आज असाइनमेंट पहले ही जमा हो चुका है
+        const todayKey = `task_done_${currentStudent.studentId}_${new Date().toDateString()}`;
+        if (localStorage.getItem(todayKey) === 'true') {
+            document.getElementById('task-input-area').classList.add('hidden');
+            document.getElementById('task-locked-area').classList.remove('hidden');
+        } else {
+            document.getElementById('task-input-area').classList.remove('hidden');
+            document.getElementById('task-locked-area').classList.add('hidden');
+        }
+
         loadPeerTasks();
+    }
+
+    // डेली असाइनमेंट जमा करना (दिन में केवल 1 बार)
+    async function submitDailyTask() {
+        if (!currentStudent) return;
+        const ans = document.getElementById('task-answer').value.trim();
+        if (ans.length < 15) {
+            alert("कृपया अपना तार्किक विश्लेषण कम से कम 2-3 वाक्यों में स्पष्ट रूप से लिखें।");
+            return;
+        }
+
+        const btn = document.getElementById('submit-task-btn');
+        btn.disabled = true; btn.innerText = "स्थायी रूप से जमा हो रहा है...";
+
+        try {
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "submitTask",
+                    studentId: currentStudent.studentId,
+                    studentName: currentStudent.fullName,
+                    taskAnswer: ans
+                })
+            });
+            const result = await res.json();
+
+            const todayKey = `task_done_${currentStudent.studentId}_${new Date().toDateString()}`;
+            if (result.status === "duplicate") {
+                alert(result.message);
+                localStorage.setItem(todayKey, 'true');
+                unlockPortal();
+            } else if (result.status === "success") {
+                localStorage.setItem(todayKey, 'true');
+                alert("आपका आज का असाइनमेंट स्थायी रूप से दर्ज कर लिया गया है!");
+                document.getElementById('task-answer').value = '';
+                unlockPortal();
+            }
+        } catch (err) {
+            alert("डेटा भेजने में त्रुटि हुई। कृपया इंटरनेट कनेक्शन जांचें।");
+        }
+        btn.disabled = false; btn.innerText = "असाइनमेंट स्थायी रूप से जमा करें";
+    }
+
+    // केवल अन्य साथियों के जवाब लोड करना (अपना खुद का जवाब छिपाना)
+    async function loadPeerTasks() {
+        if (!currentStudent) return;
+        const container = document.getElementById('peer-reviews-container');
+        container.innerHTML = "<p>साथियों के जवाब लोड हो रहे हैं...</p>";
+
+        try {
+            const res = await fetch(SCRIPT_URL);
+            const tasks = await res.json();
+
+            // अपनी ID वाले जवाब को फ़िल्टर करके हटाना
+            const peerTasks = tasks.filter(t => t.studentId && String(t.studentId).trim() !== currentStudent.studentId);
+
+            if (peerTasks.length === 0) {
+                container.innerHTML = "<p style='color:#64748b;'>अभी तक किसी अन्य साथी ने असाइनमेंट जमा नहीं किया है।</p>";
+                return;
+            }
+
+            container.innerHTML = "";
+            peerTasks.forEach((t, idx) => {
+                const reviewKey = `rev_done_${currentStudent.studentId}_${t.studentId}_${new Date().toDateString()}`;
+                const alreadyReviewed = localStorage.getItem(reviewKey) === 'true';
+
+                const card = document.createElement('div');
+                card.className = 'peer-card';
+                if (alreadyReviewed) {
+                    card.innerHTML = `
+                        <p style="margin-top:0;"><strong>सहपाठी #${idx + 1} (${t.studentName} - ${t.studentId}):</strong> "${t.taskAnswer}"</p>
+                        <div style="color: var(--success); font-weight: 600; font-size: 14px;">✅ आपने इस साथी के उत्तर की समीक्षा जमा कर दी है।</div>
+                    `;
+                } else {
+                    card.innerHTML = `
+                        <p style="margin-top:0;"><strong>सहपाठी #${idx + 1} (${t.studentName} - ${t.studentId}):</strong> "${t.taskAnswer}"</p>
+                        <textarea id="rev-${idx}" rows="2" placeholder="इस उत्तर का तार्किक परीक्षण (Fact-Check) और समीक्षा लिखें..."></textarea>
+                        <button class="btn-primary" id="rev-btn-${idx}" style="background: var(--success); border-color: var(--success); padding: 8px 16px; font-size: 14px; margin-top: 8px;" onclick="submitReview('${t.studentId}', '${t.studentName}', ${idx})">समीक्षा जमा करें</button>
+                    `;
+                }
+                container.appendChild(card);
+            });
+        } catch (err) {
+            container.innerHTML = "<p style='color:#b91c1c;'>जवाब लोड नहीं हो सके। कृपया पेज रिफ्रेश करें।</p>";
+        }
+    }
+
+    async function submitReview(targetId, targetStudent, idx) {
+        if (!currentStudent) return;
+        const revText = document.getElementById(`rev-${idx}`).value.trim();
+        if (revText.length < 10) {
+            alert("कृपया स्पष्ट और तार्किक समीक्षा लिखें (कम से कम 10 अक्षर)।");
+            return;
+        }
+
+        const btn = document.getElementById(`rev-btn-${idx}`);
+        btn.disabled = true; btn.innerText = "जमा हो रहा है...";
+
+        try {
+            const res = await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "submitReview",
+                    reviewerId: currentStudent.studentId,
+                    targetId: targetId,
+                    reviewerName: currentStudent.fullName,
+                    targetStudent: targetStudent,
+                    reviewText: revText
+                })
+            });
+            const result = await res.json();
+            const reviewKey = `rev_done_${currentStudent.studentId}_${targetId}_${new Date().toDateString()}`;
+
+            if (result.status === "duplicate") {
+                alert(result.message);
+            } else {
+                alert("आपकी समीक्षा स्थायी रूप से दर्ज कर ली गई है!");
+            }
+            localStorage.setItem(reviewKey, 'true');
+            loadPeerTasks();
+        } catch (err) {
+            alert("समीक्षा सेव करने में समस्या आई।");
+            btn.disabled = false; btn.innerText = "समीक्षा जमा करें";
+        }
     }
 
     async function submitFeedback() {
@@ -1045,77 +1388,6 @@
         }
         btn.disabled = false;
         btn.innerText = "फीडबैक भेजें";
-    }
-
-    async function submitDailyTask() {
-        const name = document.getElementById('student-name').value.trim();
-        const ans = document.getElementById('task-answer').value.trim();
-        if (!name || !ans) { alert("कृपया अपना नाम और विश्लेषण दोनों लिखें।"); return; }
-        localStorage.setItem('studentName', name);
-
-        const btn = document.getElementById('submit-task-btn');
-        btn.disabled = true; btn.innerText = "जमा हो रहा है...";
-
-        try {
-            await fetch(SCRIPT_URL, {
-                method: "POST",
-                body: JSON.stringify({ action: "submitTask", studentName: name, taskAnswer: ans })
-            });
-            alert("आपका असाइनमेंट सफलतापूर्वक दर्ज कर लिया गया है!");
-            document.getElementById('task-answer').value = '';
-            loadPeerTasks();
-        } catch (err) {
-            alert("डेटा भेजने में त्रुटि हुई। कृपया इंटरनेट कनेक्शन जांचें।");
-        }
-        btn.disabled = false; btn.innerText = "असाइनमेंट जमा करें";
-    }
-
-    async function loadPeerTasks() {
-        const container = document.getElementById('peer-reviews-container');
-        const currentUserName = document.getElementById('student-name').value.trim().toLowerCase();
-        container.innerHTML = "<p>साथियों के जवाब लोड हो रहे हैं...</p>";
-        try {
-            const res = await fetch(SCRIPT_URL);
-            const tasks = await res.json();
-            
-            // छात्र का अपना खुद का जवाब फ़िल्टर करके हटाना
-            const peerTasks = tasks.filter(t => t.studentName && t.studentName.trim().toLowerCase() !== currentUserName);
-
-            if (peerTasks.length === 0) {
-                container.innerHTML = "<p style='color:#64748b;'>अभी तक किसी अन्य साथी ने असाइनमेंट जमा नहीं किया है।</p>";
-                return;
-            }
-            container.innerHTML = "";
-            peerTasks.forEach((t, idx) => {
-                const card = document.createElement('div');
-                card.className = 'peer-card';
-                card.innerHTML = `
-                    <p style="margin-top:0;"><strong>सहपाठी #${idx + 1} (${t.studentName}):</strong> "${t.taskAnswer}"</p>
-                    <textarea id="rev-${idx}" rows="2" placeholder="इस उत्तर का तार्किक परीक्षण (Fact-Check) और समीक्षा लिखें..."></textarea>
-                    <button class="btn-primary" style="background: var(--success); border-color: var(--success); padding: 8px 16px; font-size: 14px; margin-top: 8px;" onclick="submitReview('${t.studentName}', ${idx})">समीक्षा जमा करें</button>
-                `;
-                container.appendChild(card);
-            });
-        } catch (err) {
-            container.innerHTML = "<p style='color:#b91c1c;'>जवाब लोड नहीं हो सके। कृपया पेज रिफ्रेश करें।</p>";
-        }
-    }
-
-    async function submitReview(targetStudent, idx) {
-        const reviewer = document.getElementById('student-name').value.trim();
-        const revText = document.getElementById(`rev-${idx}`).value.trim();
-        if (!reviewer || !revText) { alert("कृपया ऊपर अपना नाम और नीचे समीक्षा लिखें।"); return; }
-
-        try {
-            await fetch(SCRIPT_URL, {
-                method: "POST",
-                body: JSON.stringify({ action: "submitReview", reviewerName: reviewer, targetStudent: targetStudent, reviewText: revText })
-            });
-            alert("आपकी समीक्षा दर्ज कर ली गई है!");
-            document.getElementById(`rev-${idx}`).value = '';
-        } catch (err) {
-            alert("समीक्षा सेव करने में समस्या आई।");
-        }
     }
 
     init();
