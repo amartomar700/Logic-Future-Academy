@@ -1,1834 +1,244 @@
 <!DOCTYPE html>
-<html lang="hi" class="dark">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>तर्क और भविष्य | Logic & Future Academy</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Noto Sans Devanagari & Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Noto Sans Devanagari"', '"Poppins"', 'sans-serif'],
-                        mono: ['monospace']
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            100: '#e0e7ff',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                            700: '#4338ca',
-                            900: '#1e1b4b',
-                        },
-                        darkbg: '#0b0f19',
-                        cardbg: '#131b2e'
-                    }
-                }
-            }
-        }
-    </script>
+    <title>तर्क और सत्य - प्रवेश द्वार</title>
     <style>
-        body {
-            background-color: #0b0f19;
-            color: #f1f5f9;
-            font-family: 'Noto Sans Devanagari', 'Poppins', sans-serif;
-            overflow-x: hidden;
+        :root {
+            --primary: #1e3a8a;
+            --accent: #2563eb;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
         }
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; line-height: 1.7; }
+        .container { max-width: 780px; margin: 20px auto; background: var(--card); padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.09); }
+        h1, h2 { color: var(--primary); margin-top: 0; }
+        
+        /* एंट्री गेट स्टाइल */
+        .warning-banner {
+            background: #fef2f2;
+            border-left: 5px solid var(--danger);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
-        ::-webkit-scrollbar-track {
-            background: #0b0f19;
+        .manifesto-list {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin-bottom: 25px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
+        .manifesto-list li {
+            margin-bottom: 12px;
+            font-size: 16px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4f46e5;
-        }
-        /* Smooth Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-            animation: fadeIn 0.4s ease-out forwards;
-        }
-        @keyframes pulseGlow {
-            0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); }
-            50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.6); }
-        }
-        .glow-card {
-            animation: pulseGlow 3s infinite;
-        }
-        /* Print Styling for Certificate */
-        @media print {
-            body * {
-                visibility: hidden;
-            }
-            #certificate-printable, #certificate-printable * {
-                visibility: visible;
-            }
-            #certificate-printable {
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background: white !important;
-                color: black !important;
-                border: 8px double #4f46e5 !important;
-            }
-        }
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
+        .btn { background: var(--accent); color: #fff; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn:hover { background: #1d4ed8; }
+        .btn-exit { background: #64748b; color: #fff; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        .btn-exit:hover { background: #475569; }
+
+        /* क्विज़ और पोर्टल स्टाइल */
+        .progress-bar { width: 100%; background: #e2e8f0; border-radius: 8px; height: 12px; margin: 15px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--success); width: 0%; transition: width 0.3s ease; }
+        .story-box { background: #eff6ff; border-left: 4px solid var(--accent); padding: 16px; border-radius: 6px; margin-bottom: 20px; }
+        .option-btn { display: block; width: 100%; text-align: left; padding: 14px 16px; margin: 10px 0; border: 2px solid #cbd5e1; border-radius: 8px; background: #fff; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        .option-btn:hover:not(:disabled) { border-color: var(--accent); background: #f8fafc; }
+        .feedback { padding: 14px; border-radius: 6px; margin-top: 15px; display: none; font-weight: 500; }
+        .feedback.correct { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+        .feedback.wrong { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+        .hidden { display: none; }
+        textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; margin-top: 8px; resize: vertical; }
+        .peer-card { border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px; margin-top: 15px; background: #f8fafc; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+<body>
 
-    <!-- Toast Notification Banner (No alert() used anywhere) -->
-    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+<div class="container">
 
-    <!-- Top Navigation & Live Progress Dashboard -->
-    <header class="sticky top-0 z-40 bg-[#0b0f19]/90 backdrop-blur-md border-b border-slate-800 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div class="flex flex-wrap items-center justify-between gap-4">
-                <!-- Brand Logo -->
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                        <i class="fa-solid fa-brain"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-lg sm:text-xl font-extrabold tracking-tight bg-gradient-to-r from-indigo-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent">
-                            तर्क और भविष्य
-                        </h1>
-                        <p class="text-xs text-slate-400 hidden sm:block">Logic & Future Skills Academy</p>
-                    </div>
-                </div>
-
-                <!-- Live Stats & Progress Bar -->
-                <div class="flex items-center gap-3 sm:gap-6 flex-1 max-w-xl justify-end">
-                    <!-- Unlock Progress Bar -->
-                    <div class="flex-1 max-w-xs hidden md:block">
-                        <div class="flex justify-between text-xs mb-1">
-                            <span class="text-slate-400 font-medium">AI & Web लैब अनलॉक लक्ष्य</span>
-                            <span id="progress-text" class="text-indigo-400 font-bold">0 / 80 अंक</span>
-                        </div>
-                        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
-                            <div id="unlock-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 via-purple-500 to-emerald-400 transition-all duration-500 rounded-full" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <!-- Score Badge -->
-                    <div class="flex items-center gap-2 bg-slate-800/90 border border-slate-700 px-3.5 py-1.5 rounded-xl shadow-inner">
-                        <i class="fa-solid fa-bolt text-amber-400"></i>
-                        <div>
-                            <span class="text-xs text-slate-400 block leading-none">स्कोर</span>
-                            <span id="header-score" class="text-base sm:text-lg font-extrabold text-white leading-tight">0</span>
-                        </div>
-                    </div>
-
-                    <!-- Student Profile Pill & Submit Result Button -->
-                    <div id="student-header-info" class="hidden sm:flex items-center gap-2 bg-indigo-950/70 border border-indigo-500/30 px-3 py-1.5 rounded-xl text-xs">
-                        <i class="fa-solid fa-user-graduate text-indigo-400"></i>
-                        <span id="header-student-name" class="font-bold text-slate-200 max-w-[110px] truncate">छात्र</span>
-                    </div>
-
-                    <button onclick="syncResultToGoogleSheet(true)" id="btn-save-sheet" class="px-3 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 text-xs sm:text-sm font-bold transition flex items-center gap-1.5" title="अपना रिजल्ट रिकॉर्ड में सेव करें">
-                        <i class="fa-solid fa-cloud-arrow-up"></i>
-                        <span class="hidden sm:inline">रिजल्ट सेव करें</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Mobile Progress Bar -->
-            <div class="mt-2.5 md:hidden">
-                <div class="flex justify-between text-xs mb-1">
-                    <span class="text-slate-400">AI & Web लैब अनलॉक:</span>
-                    <span id="mobile-progress-text" class="text-indigo-400 font-bold">0 / 80 अंक</span>
-                </div>
-                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
-                    <div id="mobile-progress-bar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-400 transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
+    <!-- चरण 0: प्रवेश से पहले की स्पष्ट चेतावनी (Entry Gate) -->
+    <div id="entry-gate">
+        <div class="warning-banner">
+            <h2 style="color: var(--danger); margin-bottom: 8px;">⚠️ प्रवेश करने से पहले खुद को तैयार कर लें</h2>
+            <p style="margin: 0; font-weight: 500;">यह कोई साधारण वेबसाइट या टाइमपास पोर्टल नहीं है। आगे बढ़ने से पहले नीचे लिखी हर बात को ध्यान से पढ़ें:</p>
         </div>
-    </header>
 
-    <!-- Main Navigation Tabs -->
-    <nav class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-6">
-        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
-            <div class="flex gap-2 sm:gap-3">
-                <button id="tab-arena" onclick="switchMainView('arena')" class="px-4 py-2.5 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition">
-                    <i class="fa-solid fa-compass"></i>
-                    <span>1. दार्शनिक तर्क अखाड़ा</span>
-                </button>
-                <button id="tab-lab" onclick="switchMainView('lab')" class="px-4 py-2.5 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700 transition relative">
-                    <i id="lab-lock-icon" class="fa-solid fa-lock text-amber-400"></i>
-                    <span>2. Web डिजाइनिंग & AI लैब</span>
-                    <span id="lab-badge" class="hidden ml-1 px-2 py-0.5 text-[10px] font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-full">Unlocked</span>
-                </button>
-            </div>
+        <ul class="manifesto-list">
+            <li><strong>सिर्फ तार्किक सोच वालों के लिए:</strong> यहाँ केवल उन्हीं को प्रवेश मिलेगा जो तार्किक (Logical) सोच रखते हैं और सही व गलत के बीच फर्क करना जानते हैं।</li>
+            <li><strong>आपकी अपनी मर्जी:</strong> यहाँ आना पूरी तरह आपकी अपनी मर्जी है, और यहाँ से जाना भी। अगर आगे चलकर आपको कोई भी सवाल खराब या असहज लगता है, तो आप इसे तुरंत छोड़ सकते हैं—यहाँ आपका कोई काम नहीं है।</li>
+            <li><strong>पाखंड और अंधविश्वास से दूरी:</strong> यह पोर्टल सिर्फ उनके लिए है जो सही फैसले लेना जानते हैं और अपना भविष्य बनाना चाहते हैं। समाज में चल रहे पाखंड और अंधविश्वास को छोड़कर ही यहाँ आएं। अगर आप इन सब चीजों को मानते हैं, तो कृपया इस पोर्टल से दूर रहें।</li>
+            <li><strong>पहले परीक्षा, फिर सीख:</strong> पहले हम यह जांचेंगे कि आपकी सोच कैसी है। 100 सवालों के इस पड़ाव को पार करने के बाद ही हम आपको सिखाएंगे और बताएंगे कि आप अपना भविष्य कैसे बना सकते हैं।</li>
+            <li><strong>आत्म-निर्भर समझ:</strong> इस प्रक्रिया से गुजरने के बाद आप खुद इस सच के करीब होंगे कि आपको अपने जीवन में क्या करना है—किसी के सहारे या अंधविश्वास के पीछे भागने की जरूरत नहीं पड़ेगी।</li>
+        </ul>
 
-            <!-- Reset Progress Option -->
-            <div class="flex items-center gap-3">
-                <span id="sheet-sync-badge" class="hidden px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-1.5">
-                    <i class="fa-solid fa-circle-check"></i> Result Saved to Academy Record
-                </span>
-                <button onclick="confirmResetProgress()" class="text-xs text-slate-500 hover:text-rose-400 transition flex items-center gap-1">
-                    <i class="fa-solid fa-rotate-right"></i> रीसेट प्रोग्रेस
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- =========================================================
-         STUDENT REGISTRATION GATE MODAL (Blocks Quiz Until Filled)
-    ========================================================= -->
-    <div id="registration-modal" class="fixed inset-0 z-50 bg-[#0b0f19]/95 backdrop-blur-md flex items-center justify-center p-4">
-        <div class="bg-[#131b2e] border border-indigo-500/40 rounded-3xl w-full max-w-md p-6 sm:p-8 shadow-2xl animate-fade-in">
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl mx-auto mb-3 shadow-lg">
-                    <i class="fa-solid fa-brain"></i>
-                </div>
-                <h2 class="text-2xl font-extrabold text-white">तर्क और भविष्य में स्वागत है</h2>
-                <p class="text-xs sm:text-sm text-slate-400 mt-1">तार्किक परीक्षा शुरू करने और अपना रिकॉर्ड दर्ज करने के लिए विवरण भरें</p>
-            </div>
-
-            <form id="student-reg-form" onsubmit="handleStudentRegistration(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">आपका पूरा नाम (Student Name) *</label>
-                    <input type="text" id="reg-name" required minlength="2" placeholder="उदाहरण: राहुल कुमार" class="w-full bg-slate-900 border border-slate-700 focus:border-indigo-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">मोबाइल नंबर (10 अंकों का Mobile Number) *</label>
-                    <input type="tel" id="reg-mobile" required pattern="[0-9]{10}" maxlength="10" placeholder="उदाहरण: 9876543210" class="w-full bg-slate-900 border border-slate-700 focus:border-indigo-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
-                    <p id="reg-mobile-error" class="hidden text-xs text-rose-400 mt-1">कृपया सही 10 अंकों का मोबाइल नंबर दर्ज करें।</p>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 mb-1">शहर या गाँव का नाम (City / Village) *</label>
-                    <input type="text" id="reg-city" required minlength="2" placeholder="उदाहरण: पटना / रामपुर" class="w-full bg-slate-900 border border-slate-700 focus:border-indigo-500 rounded-xl px-4 py-3 text-sm text-white focus:outline-none">
-                </div>
-
-                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold text-sm sm:text-base shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 mt-2">
-                    <span>तार्किक चुनौती शुरू करें</span>
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </form>
+        <div class="btn-group">
+            <button class="btn" onclick="acceptAndStart()">मैं सहमत हूँ और तैयार हूँ — आगे बढ़ें ➔</button>
+            <button class="btn-exit" onclick="exitPortal()">मैं सहमत नहीं हूँ — बाहर जाएं</button>
         </div>
     </div>
 
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6">
+    <!-- चरण 1: 100 सवालों का पड़ाव -->
+    <div id="quiz-section" class="hidden">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h2>पड़ाव 1: आपकी सोच की जाँच</h2>
+            <span id="q-counter" style="font-weight: bold; color: #64748b;">सवाल 1 / 100</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+        
+        <div class="story-box">
+            <strong>परिस्थिति:</strong>
+            <p id="story-text" style="margin: 5px 0 0 0;"></p>
+        </div>
+        
+        <h3 id="question-text" style="font-size: 18px;"></h3>
+        <div id="options-container"></div>
+        <div id="feedback-box" class="feedback"></div>
+        <button id="next-btn" class="btn hidden" onclick="nextQuestion()">अगला सवाल ➔</button>
+    </div>
 
-        <!-- =========================================================
-             VIEW 1: PHILOSOPHER AI QUIZ ARENA
-        ========================================================= -->
-        <section id="view-arena" class="animate-fade-in">
-            <!-- Hero Mission Banner -->
-            <div class="bg-gradient-to-r from-indigo-950/80 via-slate-900 to-purple-950/60 border border-indigo-500/30 rounded-2xl p-5 sm:p-6 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div class="space-y-1.5 max-w-2xl">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-                        <i class="fa-solid fa-lightbulb text-amber-400"></i> अफवाहों और भटकाव से बाहर निकलें
-                    </div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-white">अंधविश्वास नहीं, सबूत और तर्क (Logic) चुनें!</h2>
-                    <p class="text-sm text-slate-300 leading-relaxed">
-                        दार्शनिक सवालों के सही जवाब देकर अपने दिमाग को तेज़ बनाएं। <strong>80 अंक</strong> पूरे करते ही आपके लिए <strong>Web Designing & AI Studio</strong> का दरवाजा खुल जाएगा।
-                    </p>
-                </div>
-                <div class="flex flex-wrap gap-2 shrink-0">
-                    <button onclick="toggleShuffleMode()" id="btn-shuffle" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs sm:text-sm text-slate-200 flex items-center gap-2 transition">
-                        <i class="fa-solid fa-shuffle text-cyan-400"></i>
-                        <span id="shuffle-label">क्रमवार (Sequential)</span>
-                    </button>
-                </div>
-            </div>
+    <!-- चरण 2: अनलॉक होने वाला डेली टास्क और पीर-रिव्यू पोर्टल -->
+    <div id="portal-section" class="hidden">
+        <h2 style="color: var(--success);">🎉 स्वागत है! आपने तार्किक सोच की पहली परीक्षा पास कर ली है</h2>
+        <p>अब आपका मुख्य पोर्टल खुल चुका है। यहाँ आप रोज़ाना के प्रैक्टिकल टास्क पूरे करेंगे और बाकी 9 साथियों के काम की जाँच (Fact-Check) करेंगे।</p>
+        
+        <div class="story-box">
+            <h3>आज का डेली टास्क (Day 1)</h3>
+            <p><strong>दिनचर्या का काम:</strong> आज अपने घर, स्कूल या मोहल्ले में किसी एक ऐसी बात, खबर या मान्यता को परखें जिसे लोग बिना सोचे मान रहे हैं। पता लगाएं कि उसका असली सच और तर्क क्या है।</p>
+            <textarea id="task-answer" rows="4" placeholder="अपना अनुभव और तर्क यहाँ विस्तार से लिखें..."></textarea>
+            <button class="btn" onclick="submitDailyTask()">टास्क सबमिट करें</button>
+        </div>
 
-            <!-- Level Filter Pills -->
-            <div class="flex flex-wrap items-center gap-2 mb-6">
-                <button onclick="filterLevel('all')" id="lvl-btn-all" class="lvl-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-indigo-600 text-white shadow transition">
-                    सभी सवाल (<span id="count-all">30</span>)
-                </button>
-                <button onclick="filterLevel(1)" id="lvl-btn-1" class="lvl-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700 transition">
-                    लेवल 1: अफवाह vs सच
-                </button>
-                <button onclick="filterLevel(2)" id="lvl-btn-2" class="lvl-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700 transition">
-                    लेवल 2: दार्शनिक दृष्टिकोण
-                </button>
-                <button onclick="filterLevel(3)" id="lvl-btn-3" class="lvl-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700 transition">
-                    लेवल 3: टेक & AI लॉजिक
-                </button>
-            </div>
+        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;">
 
-            <!-- Quiz Card & Philosopher Guide Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-                
-                <!-- Left/Main: Question Card (8 Cols) -->
-                <div class="lg:col-span-8 bg-[#131b2e] border border-slate-800 rounded-2xl p-5 sm:p-8 shadow-xl relative overflow-hidden">
-                    <!-- Top Meta Row -->
-                    <div class="flex flex-wrap items-center justify-between gap-2 mb-5 pb-4 border-b border-slate-800/80">
-                        <span id="q-level-badge" class="px-3 py-1 rounded-lg text-xs font-bold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
-                            लेवल 1: अफवाह vs सच
-                        </span>
-                        <div class="flex items-center gap-3 text-xs sm:text-sm text-slate-400">
-                            <span id="q-status-tag" class="hidden px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-semibold">
-                                <i class="fa-solid fa-check-circle"></i> हल किया गया
-                            </span>
-                            <span>सवाल <strong id="q-current-num" class="text-white">1</strong> / <span id="q-total-num">30</span></span>
-                        </div>
-                    </div>
-
-                    <!-- Question Text -->
-                    <h3 id="question-text" class="text-lg sm:text-xl md:text-2xl font-bold text-white leading-relaxed mb-6">
-                        सवाल लोड हो रहा है...
-                    </h3>
-
-                    <!-- Options Container -->
-                    <div id="options-container" class="space-y-3.5 mb-6">
-                        <!-- Options injected via JS -->
-                    </div>
-
-                    <!-- Socratic Hint / Feedback Box -->
-                    <div id="feedback-box" class="hidden rounded-2xl p-4 sm:p-5 mb-6 border transition-all animate-fade-in">
-                        <div class="flex items-start gap-3.5">
-                            <div id="feedback-icon" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 text-lg mt-0.5">
-                                <i class="fa-solid fa-owl"></i>
-                            </div>
-                            <div class="space-y-1.5">
-                                <h4 id="feedback-title" class="font-bold text-base">दार्शनिक संकेत (Philosopher's Hint)</h4>
-                                <p id="feedback-text" class="text-sm leading-relaxed"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bottom Navigation Controls -->
-                    <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800/80">
-                        <button onclick="prevQuestion()" id="btn-prev" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm font-semibold transition flex items-center gap-2 disabled:opacity-40">
-                            <i class="fa-solid fa-arrow-left"></i> पिछला
-                        </button>
-
-                        <div class="flex items-center gap-3">
-                            <button onclick="showHintManually()" id="btn-hint" class="px-4 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 text-sm font-semibold transition flex items-center gap-2">
-                                <i class="fa-regular fa-lightbulb"></i> संकेत (Hint) लें
-                            </button>
-
-                            <button onclick="nextQuestion()" id="btn-next" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                                अगला सवाल <i class="fa-solid fa-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Sidebar: Philosopher AI Mentor & Stats (4 Cols) -->
-                <div class="lg:col-span-4 space-y-6">
-                    <!-- Philosopher Mentor Card -->
-                    <div class="bg-[#131b2e] border border-slate-800 rounded-2xl p-5 shadow-lg">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-white text-2xl shadow-md">
-                                <i class="fa-solid fa-scale-balanced"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-white text-base">आचार्य तर्क (AI दार्शनिक)</h4>
-                                <span class="text-xs text-emerald-400 flex items-center gap-1">
-                                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> सक्रिय मार्गदर्शक
-                                </span>
-                            </div>
-                        </div>
-                        <blockquote id="philosopher-quote" class="text-sm text-slate-300 italic bg-slate-900/80 p-4 rounded-xl border-l-4 border-amber-500 leading-relaxed">
-                            "किसी बात को सिर्फ इसलिए मत मानो क्योंकि वह WhatsApp पर आई है या भीड़ उसे चिल्ला रही है। हर दावे से पूछो—'इसका सबूत क्या है?'"
-                        </blockquote>
-                        <div class="mt-4 grid grid-cols-2 gap-3 text-center">
-                            <div class="bg-slate-900/70 p-3 rounded-xl border border-slate-800">
-                                <span class="text-xs text-slate-400 block">सही जवाब</span>
-                                <span id="stat-solved" class="text-xl font-extrabold text-emerald-400">0</span>
-                            </div>
-                            <div class="bg-slate-900/70 p-3 rounded-xl border border-slate-800">
-                                <span class="text-xs text-slate-400 block">तर्क स्तर (Rank)</span>
-                                <span id="stat-rank" class="text-sm font-bold text-indigo-300 mt-1 block">जिज्ञासु (Beginner)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Unlock Preview Card -->
-                    <div id="sidebar-unlock-card" class="bg-gradient-to-b from-slate-900 to-indigo-950/40 border border-indigo-500/30 rounded-2xl p-5 shadow-lg">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs font-bold uppercase tracking-wider text-indigo-400">अगला पड़ाव (Reward)</span>
-                            <i id="sidebar-lock-badge" class="fa-solid fa-lock text-amber-400"></i>
-                        </div>
-                        <h4 class="font-bold text-white text-lg mb-2">Web डिजाइनिंग & AI लैब</h4>
-                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
-                            जब आपका दिमाग तार्किक हो जाएगा, तब आप खुद की वेबसाइट बनाना और AI से काम लेना सीखेंगे। इसे खोलने के लिए <strong>80 अंक</strong> चाहिए।
-                        </p>
-                        <button onclick="switchMainView('lab')" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 text-xs font-bold transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-rocket"></i> लैब स्टेटस देखें
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- =========================================================
-             VIEW 2: UNLOCKABLE WEB DESIGNING & AI LEARNING LAB
-        ========================================================= -->
-        <section id="view-lab" class="hidden animate-fade-in">
-            
-            <!-- LOCKED STATE OVERLAY -->
-            <div id="lab-locked-screen" class="bg-[#131b2e] border border-slate-800 rounded-3xl p-8 sm:p-12 text-center max-w-2xl mx-auto my-6 shadow-2xl">
-                <div class="w-20 h-20 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center text-4xl mx-auto mb-6 shadow-inner">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-3">यह लैब अभी लॉक है!</h2>
-                <p class="text-slate-300 text-sm sm:text-base leading-relaxed mb-6">
-                    कोडिंग और AI सीखने के लिए पहले तार्किक दिमाग (Logical Mind) होना जरूरी है। <strong>दार्शनिक तर्क अखाड़ा</strong> में कम से कम <strong>80 अंक (8 सही जवाब)</strong> हासिल करें और इस भविष्य की लैब को अनलॉक करें।
-                </p>
-
-                <!-- Progress Box -->
-                <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4 mb-6 max-w-md mx-auto">
-                    <div class="flex justify-between text-sm font-bold mb-2">
-                        <span class="text-slate-400">आपकी वर्तमान प्रगति:</span>
-                        <span id="locked-screen-score" class="text-indigo-400">0 / 80 अंक</span>
-                    </div>
-                    <div class="w-full h-3 bg-slate-800 rounded-full overflow-hidden">
-                        <div id="locked-screen-bar" class="h-full bg-gradient-to-r from-indigo-500 to-emerald-400 transition-all duration-500" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div class="flex flex-wrap items-center justify-center gap-3">
-                    <button onclick="switchMainView('arena')" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
-                        <i class="fa-solid fa-brain"></i> सवालों के जवाब दें
-                    </button>
-                    <!-- Demo Unlock Button for Portal Creator / Preview -->
-                    <button onclick="demoUnlockLab()" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold text-xs sm:text-sm transition flex items-center gap-2" title="शिक्षक/डेमो प्रीव्यू के लिए">
-                        <i class="fa-solid fa-key text-amber-400"></i> डेमो अनलॉक (Preview)
-                    </button>
-                </div>
-            </div>
-
-            <!-- UNLOCKED STUDIO CONTENT -->
-            <div id="lab-unlocked-content" class="hidden space-y-6">
-                <!-- Congratulatory Header -->
-                <div class="bg-gradient-to-r from-emerald-950/90 via-teal-950/80 to-indigo-950/90 border border-emerald-500/40 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold mb-2">
-                            <i class="fa-solid fa-unlock"></i> बधाई हो! तार्किक परीक्षा उत्तीर्ण
-                        </span>
-                        <h2 class="text-xl sm:text-2xl font-extrabold text-white">Web डिजाइनिंग & AI क्रिएटर स्टूडियो</h2>
-                        <p class="text-sm text-slate-300 mt-1">अब आप भीड़ का हिस्सा नहीं, बल्कि तकनीक बनाने वाले क्रिएटर हैं। नीचे दिए गए टूल्स से अभ्यास करें।</p>
-                    </div>
-                </div>
-
-                <!-- Studio Sub-Navigation -->
-                <div class="flex flex-wrap gap-2 border-b border-slate-800 pb-3">
-                    <button onclick="switchStudioModule('web')" id="mod-btn-web" class="px-4 py-2 rounded-xl text-sm font-bold bg-emerald-600 text-white shadow transition flex items-center gap-2">
-                        <i class="fa-solid fa-code"></i> मॉड्यूल 1: लाइव HTML/CSS कोडिंग
-                    </button>
-                    <button onclick="switchStudioModule('ai')" id="mod-btn-ai" class="px-4 py-2 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center gap-2">
-                        <i class="fa-solid fa-robot"></i> मॉड्यूल 2: AI प्रॉम्प्ट इंजीनियरिंग
-                    </button>
-                    <button onclick="switchStudioModule('cert')" id="mod-btn-cert" class="px-4 py-2 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center gap-2">
-                        <i class="fa-solid fa-award"></i> मॉड्यूल 3: अपना सर्टिफिकेट पाएं
-                    </button>
-                </div>
-
-                <!-- MODULE 1: LIVE HTML/CSS SANDBOX -->
-                <div id="studio-mod-web" class="space-y-4">
-                    <div class="flex flex-wrap items-center justify-between gap-3 bg-[#131b2e] p-4 rounded-2xl border border-slate-800">
-                        <div>
-                            <h3 class="font-bold text-white text-base">खुद की पहली वेबसाइट बनाएं (Live Sandbox)</h3>
-                            <p class="text-xs text-slate-400">बाएं तरफ कोड बदलें और दाएं तरफ तुरंत अपनी वेबसाइट का रिजल्ट देखें।</p>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <button onclick="loadCodeTemplate('bio')" class="px-3 py-1.5 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 text-xs font-semibold transition">
-                                टेम्पलेट 1: मेरा परिचय पेज
-                            </button>
-                            <button onclick="loadCodeTemplate('fact')" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 text-xs font-semibold transition">
-                                टेम्पलेट 2: फैक्ट-चेक अलर्ट कार्ड
-                            </button>
-                            <button onclick="loadCodeTemplate('startup')" class="px-3 py-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 text-xs font-semibold transition">
-                                टेम्पलेट 3: मेरा स्टार्टअप आइडिया
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[460px]">
-                        <!-- Code Editor -->
-                        <div class="flex flex-col bg-[#0d1322] border border-slate-800 rounded-2xl overflow-hidden">
-                            <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
-                                <span class="text-xs font-mono text-slate-400"><i class="fa-brands fa-html5 text-orange-500 mr-1"></i> index.html (कोड यहाँ लिखें)</span>
-                                <button onclick="runLiveCode()" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition">
-                                    <i class="fa-solid fa-play mr-1"></i> रन करें
-                                </button>
-                            </div>
-                            <textarea id="html-code-editor" oninput="runLiveCode()" class="flex-1 w-full bg-transparent text-emerald-300 font-mono text-xs sm:text-sm p-4 focus:outline-none resize-none leading-relaxed" spellcheck="false"></textarea>
-                        </div>
-
-                        <!-- Live Preview -->
-                        <div class="flex flex-col bg-white border border-slate-700 rounded-2xl overflow-hidden">
-                            <div class="bg-slate-200 px-4 py-2 border-b border-slate-300 flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
-                                <span class="w-3 h-3 rounded-full bg-amber-500"></span>
-                                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
-                                <span class="text-xs font-medium text-slate-600 ml-2">लाइव वेबसाइट प्रीव्यू (Browser)</span>
-                            </div>
-                            <iframe id="html-live-preview" class="flex-1 w-full bg-white" title="Live HTML Preview"></iframe>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODULE 2: AI PROMPT ENGINEERING LAB -->
-                <div id="studio-mod-ai" class="hidden space-y-6">
-                    <div class="bg-[#131b2e] border border-slate-800 rounded-2xl p-6">
-                        <h3 class="text-lg font-bold text-white mb-2">AI से सही काम कैसे लें? (Logical Prompting)</h3>
-                        <p class="text-sm text-slate-300 mb-6">
-                            AI जादू नहीं, बल्कि लॉजिक पर काम करता है। जैसा आप निर्देश (Prompt) देंगे, वैसा ही परिणाम मिलेगा। अंतर देखें:
-                        </p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-                            <div class="bg-rose-950/20 border border-rose-500/30 rounded-xl p-4">
-                                <span class="text-xs font-bold text-rose-400 uppercase"><i class="fa-solid fa-xmark"></i> कमजोर और अस्पष्ट Prompt</span>
-                                <p class="text-sm text-slate-200 mt-2 font-mono bg-slate-900/80 p-3 rounded-lg">"मुझे वेबसाइट बनानी है बताओ क्या करूं?"</p>
-                                <p class="text-xs text-slate-400 mt-2">नतीजा: AI बहुत सामान्य और उबाऊ जवाब देगा क्योंकि आपने लक्ष्य साफ नहीं बताया।</p>
-                            </div>
-                            <div class="bg-emerald-950/20 border border-emerald-500/30 rounded-xl p-4">
-                                <span class="text-xs font-bold text-emerald-400 uppercase"><i class="fa-solid fa-check"></i> तार्किक (Logical) Prompt</span>
-                                <p class="text-sm text-slate-200 mt-2 font-mono bg-slate-900/80 p-3 rounded-lg">"एक वेब डेवलपर की तरह, मेरे गांव के किसानों को मंडी भाव दिखाने वाली एक सिंपल HTML वेबसाइट का प्लान 5 स्टेप्स में समझाओ।"</p>
-                                <p class="text-xs text-slate-400 mt-2">नतीजा: Role + Goal + Format स्पष्ट होने से AI सटीक और काम का समाधान देगा।</p>
-                            </div>
-                        </div>
-
-                        <!-- Interactive Prompt Builder -->
-                        <div class="bg-slate-900/90 border border-indigo-500/30 rounded-2xl p-5">
-                            <h4 class="font-bold text-indigo-300 text-base mb-4"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>स्मार्ट AI प्रॉम्प्ट बिल्डर</h4>
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">1. AI को क्या रोल दें?</label>
-                                    <select id="pb-role" onchange="buildSmartPrompt()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                                        <option value="एक अनुभवी वेब डेवलपर और शिक्षक">वेब डेवलपर और शिक्षक</option>
-                                        <option value="एक साइबर सुरक्षा और फैक्ट-चेक विशेषज्ञ">फैक्ट-चेक विशेषज्ञ</option>
-                                        <option value="एक स्टार्टअप बिज़नेस कोच">स्टार्टअप बिज़नेस कोच</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">2. आपका मुख्य लक्ष्य क्या है?</label>
-                                    <input type="text" id="pb-goal" oninput="buildSmartPrompt()" value="ऑनलाइन पढ़ाई के लिए एक पोर्टफोलियो वेबसाइट बनाना" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-slate-400 mb-1">3. जवाब किस रूप में चाहिए?</label>
-                                    <select id="pb-format" onchange="buildSmartPrompt()" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                                        <option value="आसान हिंदी में 5 स्टेप-बाय-स्टेप पॉइंट्स में">5 आसान स्टेप्स में</option>
-                                        <option value="उदाहरण और HTML कोड के साथ">उदाहरण और कोड के साथ</option>
-                                        <option value="एक छोटी चेकलिस्ट की तरह">चेकलिस्ट की तरह</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 relative">
-                                <p id="pb-output" class="text-sm text-cyan-300 font-medium pr-20 leading-relaxed"></p>
-                                <button onclick="copyBuiltPrompt()" class="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition">
-                                    <i class="fa-regular fa-copy"></i> कॉपी करें
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODULE 3: CERTIFICATE GENERATOR -->
-                <div id="studio-mod-cert" class="hidden space-y-6">
-                    <div class="bg-[#131b2e] border border-slate-800 rounded-2xl p-6 max-w-3xl mx-auto">
-                        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 bg-slate-900/70 p-4 rounded-xl border border-slate-800">
-                            <div>
-                                <p class="text-xs text-slate-400">पंजीकृत छात्र विवरण:</p>
-                                <p class="text-sm font-bold text-white"><span id="cert-reg-summary">छात्र</span></p>
-                            </div>
-                            <button onclick="window.print()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-print"></i> सर्टिफिकेट प्रिंट / PDF सेव करें
-                            </button>
-                        </div>
-
-                        <!-- Printable Certificate Design -->
-                        <div id="certificate-printable" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 border-4 border-double border-amber-400/80 rounded-2xl p-8 sm:p-10 text-center shadow-2xl relative">
-                            <div class="text-amber-400 text-4xl mb-3"><i class="fa-solid fa-award"></i></div>
-                            <p class="text-xs uppercase tracking-[0.25em] text-indigo-300 font-bold mb-1">तर्क और भविष्य (Logic & Future Academy)</p>
-                            <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-4">तार्किक चिंतक प्रमाण पत्र</h2>
-                            <p class="text-sm text-slate-300 mb-3">यह प्रमाणित किया जाता है कि</p>
-                            <div id="cert-display-name" class="text-2xl sm:text-3xl font-extrabold text-amber-300 border-b-2 border-amber-400/50 inline-block px-8 pb-1 mb-2">
-                                युवा चिंतक (Young Thinker)
-                            </div>
-                            <p id="cert-display-city" class="text-xs font-semibold text-indigo-300 mb-5">स्थान: भारत</p>
-                            <p class="text-sm text-slate-300 max-w-xl mx-auto leading-relaxed mb-6">
-                                ने अफवाहों और भावनात्मक भटकाव से ऊपर उठकर वैज्ञानिक दृष्टिकोण, आलोचनात्मक सोच (Critical Thinking) और आधुनिक वेब व AI तकनीक की बुनियादी परीक्षा सफलतापूर्वक उत्तीर्ण की है।
-                            </p>
-                            <div class="flex justify-between items-center text-xs text-slate-400 pt-4 border-t border-slate-700/70 max-w-lg mx-auto">
-                                <div>तारीख: <span id="cert-date" class="text-white font-semibold"></span></div>
-                                <div>स्कोर: <span id="cert-score" class="text-emerald-400 font-bold">80+ अंक</span></div>
-                                <div>आचार्य तर्क (AI Mentor)</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- =========================================================
-         ADMIN PIN LOCK MODAL & PROTECTED QUESTION TESTER
-    ========================================================= -->
-    <div id="admin-pin-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-[#131b2e] border border-slate-700 rounded-2xl w-full max-w-sm p-6 shadow-2xl animate-fade-in">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
-                <h3 class="text-base font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-shield-halved text-amber-400"></i> एडमिन सत्यापन (Admin Lock)
-                </h3>
-                <button onclick="closeAdminPinModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <form onsubmit="verifyAdminPin(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs text-slate-300 mb-1">एडमिन PIN दर्ज करें (केवल पोर्टल संचालक के लिए):</label>
-                    <input type="password" id="admin-pin-input" required maxlength="8" placeholder="••••" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-center tracking-widest text-lg text-white focus:border-amber-400 focus:outline-none">
-                </div>
-                <button type="submit" class="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition">
-                    अनलॉक करें
-                </button>
-            </form>
+        <h3>साथियों के काम की जाँच करें (Peer Review - 1/9)</h3>
+        <div class="peer-card">
+            <p><strong>साथी #2 का जवाब:</strong> "मुझे व्हाट्सएप पर एक मैसेज मिला कि कल से स्कूल बंद रहेंगे। मैंने बिना जांचे अपने दोस्तों को भेज दिया क्योंकि उस पर 'जरूरी सूचना' लिखा था।"</p>
+            <label><strong>क्या यह तरीका सही था? अपना फैक्ट-चेक और सुझाव लिखें:</strong></label>
+            <textarea id="review-text" rows="3" placeholder="बताएं कि इसमें क्या गलती थी और सही तरीका क्या होना चाहिए..."></textarea>
+            <button class="btn" style="background: var(--success);" onclick="submitReview()">रिव्यू सबमिट करें</button>
         </div>
     </div>
 
-    <div id="admin-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-[#131b2e] border border-slate-700 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 shadow-2xl animate-fade-in">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
-                <div>
-                    <h3 class="text-lg font-bold text-white"><i class="fa-solid fa-lock-open text-emerald-400 mr-2"></i>एडमिन कंट्रोल पैनल (Owner Only)</h3>
-                    <p class="text-xs text-slate-400">यहाँ से आप Google Sheet कनेक्शन जांच सकते हैं या नए सवाल टेस्ट कर सकते हैं।</p>
-                </div>
-                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white text-xl"><i class="fa-solid fa-xmark"></i></button>
+</div>
+
+<!-- आपकी 100 सवालों वाली फाइल -->
+<script src="questions.js"></script>
+
+<script>
+    let currentIndex = parseInt(localStorage.getItem('completedQuestions')) || 0;
+    let gateAccepted = localStorage.getItem('gateAccepted') === 'true';
+    const totalRequired = typeof questionsData !== 'undefined' ? questionsData.length : 100;
+
+    function init() {
+        if (!gateAccepted) {
+            // सबसे पहले एंट्री गेट दिखाएं
+            document.getElementById('entry-gate').classList.remove('hidden');
+            document.getElementById('quiz-section').classList.add('hidden');
+            document.getElementById('portal-section').classList.add('hidden');
+        } else if (currentIndex >= totalRequired) {
+            unlockPortal();
+        } else {
+            startQuiz();
+        }
+    }
+
+    function acceptAndStart() {
+        localStorage.setItem('gateAccepted', 'true');
+        gateAccepted = true;
+        startQuiz();
+    }
+
+    function exitPortal() {
+        document.body.innerHTML = `
+            <div style="max-width:600px; margin:80px auto; text-align:center; font-family:sans-serif; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.08);">
+                <h2 style="color:#dc2626;">आपने बाहर जाने का विकल्प चुना है</h2>
+                <p style="color:#475569; font-size:16px;">यह पोर्टल केवल उन्हीं के लिए है जो तार्किक सोच और सत्य की राह पर चलने के लिए तैयार हैं। जब आप तैयार हों, तब वापस आ सकते हैं।</p>
+                <button onclick="location.reload()" style="margin-top:15px; padding:10px 20px; background:#2563eb; color:#fff; border:none; border-radius:6px; cursor:pointer;">वापस जाएं</button>
             </div>
+        `;
+    }
 
-            <!-- Connection Status Bar -->
-            <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 mb-5 flex flex-wrap items-center justify-between gap-2 text-xs">
-                <div>
-                    <span class="text-slate-400 block">Google Apps Script कनेक्शन स्थिति:</span>
-                    <span id="admin-script-status" class="font-bold text-amber-400">जाँच हो रही है...</span>
-                </div>
-                <button type="button" onclick="fetchQuestionsFromGoogleSheet(true)" class="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 font-semibold">
-                    <i class="fa-solid fa-rotate mr-1"></i> Sheet से सवाल सिंक करें
-                </button>
-            </div>
+    function startQuiz() {
+        document.getElementById('entry-gate').classList.add('hidden');
+        document.getElementById('quiz-section').classList.remove('hidden');
+        loadQuestion();
+    }
 
-            <form id="add-question-form" onsubmit="handleAddQuestion(event)" class="space-y-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">लेवल चुनें:</label>
-                        <select id="new-q-level" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                            <option value="1">लेवल 1: अफवाह vs सच</option>
-                            <option value="2">लेवल 2: दार्शनिक दृष्टिकोण</option>
-                            <option value="3">लेवल 3: टेक & AI लॉजिक</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-300 mb-1">सही विकल्प कौन सा है?</label>
-                        <select id="new-q-correct" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                            <option value="0">विकल्प A (पहला)</option>
-                            <option value="1">विकल्प B (दूसरा)</option>
-                            <option value="2">विकल्प C (तीसरा)</option>
-                        </select>
-                    </div>
-                </div>
+    function loadQuestion() {
+        const q = questionsData[currentIndex];
+        document.getElementById('q-counter').innerText = `सवाल ${currentIndex + 1} / ${totalRequired}`;
+        document.getElementById('progress').style.width = `${(currentIndex / totalRequired) * 100}%`;
+        document.getElementById('story-text').innerText = q.story;
+        document.getElementById('question-text').innerText = q.question;
+        
+        const optionsDiv = document.getElementById('options-container');
+        optionsDiv.innerHTML = '';
+        document.getElementById('feedback-box').style.display = 'none';
+        document.getElementById('next-btn').classList.add('hidden');
 
-                <div>
-                    <label class="block text-xs text-slate-300 mb-1">सवाल लिखें:</label>
-                    <textarea id="new-q-text" required rows="2" placeholder="उदाहरण: मान लीजिए किसी नेता ने कहा..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white"></textarea>
-                </div>
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(idx);
+            optionsDiv.appendChild(btn);
+        });
+    }
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">विकल्प A:</label>
-                        <input type="text" id="new-q-opt0" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">विकल्प B:</label>
-                        <input type="text" id="new-q-opt1" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">विकल्प C:</label>
-                        <input type="text" id="new-q-opt2" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                    </div>
-                </div>
+    function checkAnswer(selectedIndex) {
+        const q = questionsData[currentIndex];
+        const feedbackBox = document.getElementById('feedback-box');
+        feedbackBox.style.display = 'block';
 
-                <div>
-                    <label class="block text-xs text-slate-300 mb-1">दार्शनिक संकेत (गलत जवाब देने पर दिखने वाला Hint):</label>
-                    <input type="text" id="new-q-hint" required placeholder="उदाहरण: बिना सबूत किसी बात पर भरोसा न करें..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                </div>
-
-                <div>
-                    <label class="block text-xs text-slate-300 mb-1">तार्किक सीख (सही जवाब देने पर दिखने वाली व्याख्या):</label>
-                    <input type="text" id="new-q-exp" required placeholder="उदाहरण: फैक्ट-चेक करने से हम अफवाहों से बचते हैं।" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white">
-                </div>
-
-                <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-800">
-                    <button type="button" onclick="exportQuestionsJSON()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-slate-700 text-xs font-bold transition">
-                        <i class="fa-solid fa-download mr-1"></i> Google Sheet के लिए JSON कॉपी करें
-                    </button>
-                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-bold shadow-lg transition">
-                        <i class="fa-solid fa-plus mr-1"></i> प्रीव्यू के लिए जोड़ें
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Footer with Discreet Admin Lock Icon -->
-    <footer class="border-t border-slate-800/80 py-5 px-4 text-center text-xs text-slate-500 mt-10">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-            <p>तर्क और भविष्य (Logic & Future Academy) • युवाओं को अफवाहों से निकालकर क्रिटिकल थिंकिंग और AI कौशल से जोड़ने की पहल।</p>
-            <button onclick="openAdminPinModal()" class="text-slate-600 hover:text-slate-400 transition p-1.5 rounded-lg" title="Admin Lock">
-                <i class="fa-solid fa-lock text-xs"></i>
-            </button>
-        </div>
-    </footer>
-
-    <!-- =========================================================
-         JAVASCRIPT LOGIC, GOOGLE SHEETS SYNC & QUESTION DATABASE
-    ========================================================= -->
-    <script>
-        // =========================================================================
-        // CONFIGURATION: Paste your deployed Google Apps Script Web App URL below
-        // =========================================================================
-        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxEpJ2XkR3fcKRD3Ln0j0dyuq4e_xyXOPWv9AtMDSQnMWZbY3IiiBY-nJ1dJkO_Vbioag/exec";
-        const ADMIN_PIN = "7008";
-
-        // 1. INITIAL 30 LOGICAL & PHILOSOPHICAL QUESTIONS DATABASE
-        const defaultQuestions = [
-            // LEVEL 1: Viral Myths & Everyday Traps (1-10)
-            {
-                id: 1, level: 1,
-                question: "मान लीजिए आपके दोस्त ने WhatsApp पर मैसेज भेजा कि 'आज रात 12 बजे मोबाइल टावर से खतरनाक रेडिएशन निकलेगा, फोन बंद कर दें'। आप सबसे पहले क्या करेंगे?",
-                options: [
-                    "तुरंत डर के मारे सभी ग्रुप में फॉरवर्ड करेंगे",
-                    "घबराकर फोन स्विच ऑफ कर देंगे",
-                    "चेक करेंगे कि क्या विज्ञान में ऐसा संभव है और इसकी असली सोर्स क्या है"
-                ],
-                correct: 2,
-                hint: "क्या कोई सरकारी या वैज्ञानिक संस्था रात 12 बजे अचानक खतरनाक रेडिएशन छोड़ती है? बिना सबूत किसी डर पर भरोसा न करें।",
-                explanation: "शाबाश! मोबाइल टावर से ऐसी कोई अचानक 'रात 12 बजे वाली' किरणें नहीं निकलतीं। यह एक पुरानी अफवाह है। हमेशा आधिकारिक सोर्स चेक करें।"
-            },
-            {
-                id: 2, level: 1,
-                question: "WhatsApp पर एक मैसेज आता है कि 'इस मैसेज को 10 लोगों को भेजने से आज शाम तक कोई बड़ी खुशखबरी मिलेगी, वरना बुरा होगा।' आप क्या करेंगे?",
-                options: [
-                    "डर के मारे 10 लोगों को भेज देंगे",
-                    "इसे डिलीट करेंगे, क्योंकि मैसेज फॉरवर्ड करने से किस्मत नहीं बदलती",
-                    "स्टेटस पर लगा देंगे ताकि सब देख लें"
-                ],
-                correct: 1,
-                hint: "क्या किसी सॉफ्टवेयर के टेक्स्ट मैसेज में इतनी ताकत होती है कि वह आपकी असली जिंदगी की घटनाएं बदल दे?",
-                explanation: "बिल्कुल सही! यह 'चेन मैसेज' (Chain Message) का मनोवैज्ञानिक जाल है जो डर और लालच का इस्तेमाल करके फैलता है।"
-            },
-            {
-                id: 3, level: 1,
-                question: "एक वीडियो में कोई व्यक्ति दावा कर रहा है कि 'सिर्फ 2 दिन में बिना मेहनत के करोड़पति बनने का फॉर्मूला मेरे पास है।' आपकी पहली प्रतिक्रिया क्या होगी?",
-                options: [
-                    "तुरंत उसे पैसे भेजकर फॉर्मूला खरीदेंगे",
-                    "सोचेंगे कि अगर उसके पास ऐसा फॉर्मूला होता, तो वह खुद करोड़पति होता, कोर्स नहीं बेचता",
-                    "दोस्तों को भी पैसे लगाने को कहेंगे"
-                ],
-                correct: 1,
-                hint: "जब कोई ऑफर सच होने के लिए बहुत ज्यादा अच्छा लगे, तो उसके पीछे का लालच और लॉजिक चेक करें।",
-                explanation: "सटीक तर्क! असली सफलता कौशल (Skills) और मेहनत से आती है, किसी 2-दिन के जादुई फॉर्मूले से नहीं।"
-            },
-            {
-                id: 4, level: 1,
-                question: "आपके मोहल्ले में अफवाह फैलती है कि बाहरी लोगों ने पानी की टंकी में कुछ मिला दिया है। भीड़ गुस्से में इकट्ठा हो रही है। आप क्या करेंगे?",
-                options: [
-                    "भीड़ के साथ मिलकर नारे लगाएंगे",
-                    "बिना जांचे-परखे सोशल मीडिया पर लाइव वीडियो डाल देंगे",
-                    "शांत रहेंगे, जल विभाग या पुलिस से पुष्टि करेंगे और लोगों को अफवाह से रोकेंगे"
-                ],
-                correct: 2,
-                hint: "भीड़ का हिस्सा बनना आसान है, लेकिन सच की जांच करना और संकट में शांत रहना ही समझदारी है।",
-                explanation: "बहुत बढ़िया! अफवाहें अक्सर समाज में तनाव फैलाने के लिए गढ़ी जाती हैं। जिम्मेदार नागरिक हमेशा प्रशासन से पुष्टि करता है।"
-            },
-            {
-                id: 5, level: 1,
-                question: "हर साल त्योहार पर एक फोटो वायरल होती है कि 'NASA ने अंतरिक्ष से भारत की रंग-बिरंगी रोशनी वाली तस्वीर खींची है।' आप क्या मानेंगे?",
-                options: [
-                    "तुरंत गर्व के साथ शेयर करेंगे",
-                    "चेक करेंगे कि यह फोटो एडिट की हुई (Photoshopped) पुरानी तस्वीर है",
-                    "इसे अपनी प्रोफाइल पिक्चर लगाएंगे"
-                ],
-                correct: 1,
-                hint: "इंटरनेट पर दिखने वाली हर चमकदार तस्वीर असली नहीं होती; गूगल रिवर्स इमेज सर्च या फैक्ट-चेक करें।",
-                explanation: "सही पहचाना! यह तस्वीर असल में अलग-अलग सालों के डेटा को मिलाकर बनाई गई एक ग्राफिक इमेज है, किसी एक रात की लाइव फोटो नहीं।"
-            },
-            {
-                id: 6, level: 1,
-                question: "एक नेता भाषण में कहता है कि 'पिछले 70 साल में इस देश में कुछ भी नहीं हुआ, सब कुछ आज ही शुरू हुआ है।' एक तार्किक दिमाग इस पर क्या सोचेगा?",
-                options: [
-                    "बिल्कुल सही बात है, ताली बजाएगा",
-                    "सोचेगा कि जो स्कूल, अस्पताल, रेलवे और मोबाइल नेटवर्क हम इस्तेमाल कर रहे हैं, वे एक दिन में नहीं बने—यह सिर्फ एक चुनावी जुमला है",
-                    "गुस्से में आकर पुराने लोगों को कोसेगा"
-                ],
-                correct: 1,
-                hint: "किसी भी 'सब कुछ' या 'कुछ भी नहीं' जैसे चरम दावों (Extreme Claims) को तथ्यों की कसौटी पर परखें।",
-                explanation: "शानदार! किसी भी देश का विकास एक निरंतर प्रक्रिया है। तार्किक व्यक्ति भावनात्मक भाषणों के बजाय तथ्यों और आंकड़ों को देखता है।"
-            },
-            {
-                id: 7, level: 1,
-                question: "सोशल मीडिया पर कोई यूट्यूबर किसी ऐसे 'जादुई तेल' का प्रचार कर रहा है जिससे 7 दिन में नए बाल आ जाते हैं। आप क्या करेंगे?",
-                options: [
-                    "तुरंत ऑर्डर करेंगे",
-                    "समझेंगे कि उसे प्रचार करने के पैसे मिले हैं, और बाल उगने का कोई 7-दिन का जादुई विज्ञान नहीं होता",
-                    "उसे अपना आदर्श मान लेंगे"
-                ],
-                correct: 1,
-                hint: "विज्ञापन (Advertisement) और वैज्ञानिक हकीकत (Scientific Reality) के बीच का फर्क समझें।",
-                explanation: "बिल्कुल ठीक! सोशल मीडिया इन्फ्लुएंसर पैसे लेकर प्रोडक्ट बेचते हैं। स्वास्थ्य से जुड़ी किसी भी बात के लिए डॉक्टर और विज्ञान पर भरोसा करें।"
-            },
-            {
-                id: 8, level: 1,
-                question: "किसी विषय पर सोशल मीडिया पर #Boycott ट्रेंड चल रहा है, लेकिन आपको नहीं पता कि असली मामला क्या है। आप क्या करेंगे?",
-                options: [
-                    "बिना जाने आप भी #Boycott लिखकर पोस्ट करेंगे",
-                    "पहले दोनों पक्षों की पूरी बात पढ़ेंगे और देखेंगे कि विरोध असली मुद्दा है या ध्यान भटकाने की राजनीति",
-                    "जो सबसे ज्यादा चिल्ला रहा है, उसकी बात मान लेंगे"
-                ],
-                correct: 1,
-                hint: "इंटरनेट पर किसी चीज के 'ट्रेंडिंग' होने का मतलब उसका 'सही' होना नहीं होता।",
-                explanation: "उत्कृष्ट! कई बार ट्रेंड्स को आईटी सेल या बॉट्स द्वारा कृत्रिम रूप से चलाया जाता है। अपनी बुद्धि का इस्तेमाल करें।"
-            },
-            {
-                id: 9, level: 1,
-                question: "एक खबर की हेडलाइन है: 'वैज्ञानिकों ने खोजा अमर होने का तरीका!' अंदर पढ़ने पर पता चलता है कि यह सिर्फ एक चूहे की कोशिका पर शुरुआती प्रयोग है। यह क्या है?",
-                options: [
-                    "बड़ी वैज्ञानिक सफलता",
-                    "क्लिकबेट (Clickbait)—यानी सनसनीखेज हेडलाइन बनाकर व्यूज बटोरने की चाल",
-                    "भविष्य की पक्की खबर"
-                ],
-                correct: 1,
-                hint: "सिर्फ हेडलाइन पढ़कर राय न बनाएं, पूरी खबर और उसके सबूत पढ़ें।",
-                explanation: "सही जवाब! डिजिटल मीडिया में व्यूज और विज्ञापन के पैसे कमाने के लिए ऐसी भ्रामक हेडलाइंस बनाई जाती हैं।"
-            },
-            {
-                id: 10, level: 1,
-                question: "एक मैसेज में लिखा है: 'इस लिंक पर क्लिक करें और मुफ्त लैपटॉप पाएं।' वेबसाइट का पता `free-laptop-gov.xyz` है। आप क्या करेंगे?",
-                options: [
-                    "तुरंत अपना आधार नंबर और बैंक डिटेल भरेंगे",
-                    "पहचान लेंगे कि सरकारी वेबसाइट `.gov.in` होती है, `.xyz` नहीं—यह एक साइबर फ्रॉड (Phishing) है",
-                    "सभी दोस्तों को लिंक भेजेंगे"
-                ],
-                correct: 1,
-                hint: "फ्री के लालच में हमेशा वेबसाइट का असली डोमेन (URL) चेक करें।",
-                explanation: "बहुत बढ़िया! डिजिटल साक्षरता (Digital Literacy) आपको और आपके परिवार को ऑनलाइन ठगी से बचाती है।"
-            },
-
-            // LEVEL 2: Philosopher's Lens & Real Civic Issues (11-20)
-            {
-                id: 11, level: 2,
-                question: "एक शहर में ट्रैफिक जाम और गंदे पानी की समस्या है। दो नेता अलग-अलग वादे करते हैं—पहला कहता है 'हम भव्य गेट बनाएंगे जिससे शहर का नाम होगा', दूसरा कहता है 'हम सड़कें और पानी की पाइपलाइन सुधारेंगे'। आप किसे चुनेंगे?",
-                options: [
-                    "पहले नेता को, क्योंकि भव्य गेट से शहर की शान बढ़ेगी",
-                    "दूसरे नेता को, क्योंकि साफ पानी और बेहतर सड़कें नागरिकों के जीवन और रोजगार के लिए जरूरी हैं",
-                    "किसी को नहीं, बस सोशल मीडिया पर बहस करेंगे"
-                ],
-                correct: 1,
-                hint: "बुनियादी जरूरतें (पानी, शिक्षा, स्वास्थ्य, रोजगार) हमेशा दिखावटी और भावनात्मक नारों से ऊपर होती हैं।",
-                explanation: "दार्शनिक समझ! जब जनता असली मुद्दों पर सवाल पूछती है, तभी नेता काम करने के लिए मजबूर होते हैं।"
-            },
-            {
-                id: 12, level: 2,
-                question: "महान दार्शनिक सुकरात (Socrates) कहते थे—'मैं जानता हूं कि मैं कुछ नहीं जानता।' इसका असली मतलब क्या है?",
-                options: [
-                    "सुकरात को कुछ भी पढ़ना-लिखना नहीं आता था",
-                    "जो इंसान यह मान लेता है कि उसे सब कुछ पता है, वह नया सीखना बंद कर देता है; ज्ञान की शुरुआत जिज्ञासा से होती है",
-                    "हमें पढ़ाई-लिखाई छोड़ देनी चाहिए"
-                ],
-                correct: 1,
-                hint: "ज्ञान का पहला कदम अपने अधूरे ज्ञान को स्वीकार करना और खुले दिमाग से सवाल पूछना है।",
-                explanation: "अद्भुत! जो युवा यह मानता है कि WhatsApp या रील्स से उसे सब ज्ञान मिल गया, वह कभी असली विशेषज्ञ नहीं बन सकता।"
-            },
-            {
-                id: 13, level: 2,
-                question: "टीवी डिबेट या मोहल्ले में दो लोग बहस कर रहे हैं। एक के पास ठोस आंकड़े (Data) हैं, जबकि दूसरा जोर-जोर से चिल्ला रहा है और व्यक्तिगत गालियां दे रहा है। तर्क किसका मजबूत है?",
-                options: [
-                    "जो ज्यादा तेज चिल्ला रहा है",
-                    "जिसके पास सबूत और शांत तर्क हैं; चिल्लाना अक्सर तर्क की कमी को छुपाने का तरीका होता है",
-                    "दोनों बराबर हैं"
-                ],
-                correct: 1,
-                hint: "आवाज ऊंची करने से झूठ सच नहीं बन जाता।",
-                explanation: "सटीक! इसे दर्शनशास्त्र में 'Ad Hominem' कहते हैं—जब व्यक्ति मुद्दे पर बात करने के बजाय सामने वाले पर व्यक्तिगत हमला करने लगे।"
-            },
-            {
-                id: 14, level: 2,
-                question: "अगर समाज में कोई पुरानी परंपरा किसी इंसान के साथ अन्याय करती है या उसे आगे बढ़ने से रोकती है, तो एक तार्किक इंसान क्या करेगा?",
-                options: [
-                    "आंख बंद करके उसे निभाएगा क्योंकि 'हमेशा से ऐसा ही होता आया है'",
-                    "उस पर सवाल उठाएगा और इंसानियत व न्याय के आधार पर सुधार की बात करेगा",
-                    "दूसरों को भी उसे मानने के लिए डराएगा"
-                ],
-                correct: 1,
-                hint: "कोई काम सिर्फ इसलिए सही नहीं हो जाता क्योंकि वह सदियों से चला आ रहा है।",
-                explanation: "सही सोच! समय के साथ समाज में सुधार (Reform) तभी होता है जब युवा पुरानी रूढ़ियों पर तर्क की रोशनी डालते हैं।"
-            },
-            {
-                id: 15, level: 2,
-                question: "एक राजनेता कहता है: 'तुम्हारी गरीबी और बेरोजगारी का कारण पड़ोसी मोहल्ले या दूसरे समुदाय के लोग हैं।' इस बयान के पीछे क्या चाल हो सकती है?",
-                options: [
-                    "वह आपकी सच्ची मदद करना चाहता है",
-                    "वह अपनी नाकामियों (खराब शिक्षा, रोजगार की कमी) से आपका ध्यान हटाकर आपको आपस में उलझाए रखना चाहता है",
-                    "इससे कल ही सबको नौकरी मिल जाएगी"
-                ],
-                correct: 1,
-                hint: "जब कोई आपको किसी दूसरे से नफरत करना सिखाए, तो देखें कि इससे किसकी कुर्सी या फायदा बच रहा है।",
-                explanation: "गहरी समझ! 'फूट डालो और राज करो' पुरानी राजनीति है। रोजगार अच्छी शिक्षा, उद्योग और कौशल (Skills) से आता है, नफरत से नहीं।"
-            },
-            {
-                id: 16, level: 2,
-                question: "आप रोज़ 4 घंटे रील्स देखने और राजनीतिक नेताओं के पक्ष-विपक्ष में लड़ने में बिताते हैं, जबकि आपका कोई करियर स्किल तैयार नहीं है। 5 साल बाद क्या होगा?",
-                options: [
-                    "जिन नेताओं के लिए आप लड़ रहे थे, वे आपके घर आकर आपको नौकरी देंगे",
-                    "नेता और उनके बच्चे आगे बढ़ जाएंगे, और आप पीछे रह जाएंगे—इसलिए खुद पर निवेश करना जरूरी है",
-                    "किस्मत से बिना मेहनत के सब ठीक हो जाएगा"
-                ],
-                correct: 1,
-                hint: "आपका समय ही आपकी असली पूंजी है; इसे दूसरों के राजनीतिक एजेंडे पर खर्च न करें।",
-                explanation: "कड़वा मगर जरूरी सच! जो समय आप दूसरों की राजनीति में गंवाते हैं, उसी समय में आप कोडिंग, डिज़ाइन या कोई व्यापार सीख सकते हैं।"
-            },
-            {
-                id: 17, level: 2,
-                question: "आपका एक दोस्त किसी नेता या विचारधारा का इतना कट्टर समर्थक है कि वह उसकी हर गलती को भी सही ठहराता है। इसका क्या मतलब है?",
-                options: [
-                    "वह बहुत ईमानदार और वफादार है",
-                    "उसने अपनी स्वतंत्र सोच गिरवी रख दी है और अब वह तर्क के बजाय अंधभक्ति में जी रहा है",
-                    "वह सबसे बड़ा दार्शनिक है"
-                ],
-                correct: 1,
-                hint: "किसी के अच्छे काम की तारीफ करना ठीक है, लेकिन गलत को गलत न कह पाना मानसिक गुलामी है।",
-                explanation: "बिल्कुल सही! एक स्वतंत्र नागरिक हमेशा नीतियों और कामों का समर्थन या विरोध करता है, किसी व्यक्ति की अंधभक्ति नहीं।"
-            },
-            {
-                id: 18, level: 2,
-                question: "एक फैक्ट्री नदी में जहरीला कचरा बहा रही है जिससे लोग बीमार हो रहे हैं, लेकिन फैक्ट्री मालिक हर साल बड़ा उत्सव करवाता है और दान देता है। आप उसे क्या मानेंगे?",
-                options: [
-                    "बहुत बड़ा समाजसेवी",
-                    "वह एक हाथ से छोटा दान देकर दूसरे हाथ से समाज के स्वास्थ्य और पर्यावरण को बड़ा नुकसान पहुंचा रहा है",
-                    "एक आदर्श नागरिक"
-                ],
-                correct: 1,
-                hint: "दिखावे के दान-पुण्य के पीछे छिपे असली नुकसान और नियमों के उल्लंघन को देखें।",
-                explanation: "सटीक विश्लेषण! इसे 'Greenwashing' या छवि निर्माण (PR) कहते हैं, जहां बड़े अपराधों को छोटे दान के पीछे छुपाया जाता है।"
-            },
-            {
-                id: 19, level: 2,
-                question: "जब कोई आपसे कहे कि 'सवाल मत पूछो, बस चुपचाप विश्वास करो', तो आपका दिमाग क्या संकेत देना चाहिए?",
-                options: [
-                    "आंख बंद करके मान लेना चाहिए",
-                    "सतर्क हो जाना चाहिए, क्योंकि सच को कभी भी सवालों और जांच से डर नहीं लगता",
-                    "तर्क करना पाप है"
-                ],
-                correct: 1,
-                hint: "सोना आग में तपकर निखरता है, और सच सवालों की कसौटी पर खरा उतरता है।",
-                explanation: "शाबाश! विज्ञान और दर्शन दोनों की नींव 'क्यों?' (Why?) और 'कैसे?' (How?) पूछने पर ही टिकी है।"
-            },
-            {
-                id: 20, level: 2,
-                question: "भीड़ में खड़े होकर किसी पर पत्थर फेंकना या इंटरनेट पर किसी को ट्रोल करना आसान क्यों होता है?",
-                options: [
-                    "क्योंकि भीड़ हमेशा सही होती है",
-                    "क्योंकि भीड़ में व्यक्ति की अपनी जिम्मेदारी छुप जाती है, और वह बिना सोचे दूसरों की नकल करता है",
-                    "क्योंकि यह बहुत बहादुरी का काम है"
-                ],
-                correct: 1,
-                hint: "असली साहस भीड़ के साथ बहने में नहीं, बल्कि अकेले खड़े होकर सही और न्यायपूर्ण बात कहने में है।",
-                explanation: "बेहतरीन! मनोविज्ञान में इसे 'Mob Mentality' कहते हैं, जहां इंसान अपना विवेक खोकर समूह के जुनून में बह जाता है।"
-            },
-
-            // LEVEL 3: Tech, Coding & AI Logic (21-30)
-            {
-                id: 21, level: 3,
-                question: "कंप्यूटर या AI (Artificial Intelligence) किसी भी कठिन समस्या को कैसे हल करता है?",
-                options: [
-                    "जादू और अंधेरे में तीर चलाकर",
-                    "बड़े काम को छोटे-छोटे तार्किक स्टेप्स (Algorithms) और डेटा के नियमों में तोड़कर",
-                    "इंसानों की तरह गुस्सा होकर"
-                ],
-                correct: 1,
-                hint: "कंप्यूटर भावनाओं से नहीं, बल्कि साफ निर्देशों और क्रमबद्ध तर्क (Step-by-step Logic) से चलता है।",
-                explanation: "सही जवाब! जब आप अपनी जिंदगी की समस्याओं को भी छोटे-छोटे तार्किक स्टेप्स में तोड़ना सीख लेते हैं, तो आप एक अच्छे प्रॉब्लम सॉल्वर बन जाते हैं।"
-            },
-            {
-                id: 22, level: 3,
-                question: "आप एक वेबसाइट बना रहे हैं और बटन दबाने पर पेज नहीं खुल रहा है। एक तार्किक डेवलपर क्या करेगा?",
-                options: [
-                    "कंप्यूटर पर गुस्सा करेगा और कोडिंग छोड़ देगा",
-                    "स्टेप-बाय-स्टेप चेक करेगा: क्या लिंक सही है? क्या कोड में कोई स्पेलिंग गलत है? (Debugging)",
-                    "बिना देखे नया लैपटॉप खरीदेगा"
-                ],
-                correct: 1,
-                hint: "हर समस्या के पीछे कोई न कोई तार्किक कारण (Bug) होता है; शांत रहकर उसे ढूंढना ही इंजीनियरिंग है।",
-                explanation: "बिल्कुल ठीक! कोडिंग हमें सिखाती है कि गलती होने पर दूसरों को दोष देने के बजाय शांत दिमाग से कारण खोजा जाए।"
-            },
-            {
-                id: 23, level: 3,
-                question: "अगर किसी AI मॉडल को गलत या पक्षपाती (Biased) जानकारी देकर ट्रेन किया जाए, तो वह क्या करेगा?",
-                options: [
-                    "खुद से भगवान की तरह सच खोज लेगा",
-                    "वह भी गलत और पक्षपाती जवाब ही देगा (Garbage In, Garbage Out)",
-                    "काम करना बंद कर देगा"
-                ],
-                correct: 1,
-                hint: "AI इंसान के दिए डेटा से पैटर्न सीखता है, इसलिए डेटा की शुद्धता और जांच सबसे जरूरी है।",
-                explanation: "सटीक! इसलिए AI के दौर में भी ऐसे इंसानों की सबसे ज्यादा जरूरत है जो सही और गलत डेटा में फर्क कर सकें।"
-            },
-            {
-                id: 24, level: 3,
-                question: "वेब डिजाइनिंग में 'User Experience (UX)' का सबसे बड़ा नियम क्या है?",
-                options: [
-                    "वेबसाइट को इतने चमकते रंगों और विज्ञापनों से भर देना कि कुछ समझ न आए",
-                    "वेबसाइट को इतना सरल और साफ बनाना कि इस्तेमाल करने वाले को बिना उलझे काम की चीज मिल जाए",
-                    "सिर्फ अपना नाम बड़ा-बड़ा लिखना"
-                ],
-                correct: 1,
-                hint: "अच्छा डिजाइन वह है जो सामने वाले की समस्या आसान करे, न कि उसे भ्रमित करे।",
-                explanation: "शानदार! सरलता (Simplicity) और स्पष्टता (Clarity) ही महान डिजाइन और महान विचारों की पहचान है।"
-            },
-            {
-                id: 25, level: 3,
-                question: "एक लॉजिकल पहेली: 'सभी कोडर तार्किक होते हैं। राहुल एक कोडर है।' इससे क्या पक्का निष्कर्ष निकलता है?",
-                options: [
-                    "राहुल को वेब डिजाइनिंग नहीं आती",
-                    "राहुल तार्किक है",
-                    "सभी तार्किक लोग कोडर होते हैं"
-                ],
-                correct: 1,
-                hint: "दिए गए नियमों से बाहर का अनुमान न लगाएं, सिर्फ जो 100% साबित होता है वही चुनें।",
-                explanation: "परफेक्ट! इसे 'Deductive Reasoning' कहते हैं। तर्कशास्त्र और कोडिंग दोनों में नियमों से सही निष्कर्ष निकालना सबसे अहम है।"
-            },
-            {
-                id: 26, level: 3,
-                question: "अगर आप ChatGPT या किसी AI टूल से कोई कठिन काम करवाना चाहते हैं (Prompt Engineering), तो सबसे असरदार तरीका क्या है?",
-                options: [
-                    "उसे एक अधूरा शब्द लिखकर छोड़ देना",
-                    "उसे साफ संदर्भ (Context), स्पष्ट भूमिका और उदाहरण देना कि आपको कैसा आउटपुट चाहिए",
-                    "उससे उम्मीद करना कि वह आपके मन की बात पढ़ लेगा"
-                ],
-                correct: 1,
-                hint: "जिसके दिमाग में खुद स्पष्टता होती है, वही AI को भी स्पष्ट निर्देश (Prompt) दे पाता है।",
-                explanation: "बिल्कुल सही! भविष्य में वे लोग आगे बढ़ेंगे जो AI से तार्किक सवाल पूछकर अपना काम 10 गुना तेज़ कर सकेंगे।"
-            },
-            {
-                id: 27, level: 3,
-                question: "इंटरनेट पर फ्री में उपलब्ध ज्ञान (कोडिंग, AI, डिजाइनिंग) का सबसे बड़ा फायदा किसे होता है?",
-                options: [
-                    "जिसके पास सबसे महंगा फोन और अनलिमिटेड डेटा है",
-                    "जिसके पास सीखने की अनुशासित आदत और सवाल पूछने का दिमाग है",
-                    "जो दिन भर सिर्फ मनोरंजन के वीडियो देखता है"
-                ],
-                correct: 1,
-                hint: "साधन आज सबके पास हैं, फर्क सिर्फ उनके इस्तेमाल करने के तरीके से पड़ता है।",
-                explanation: "सच्ची बात! एक ही स्मार्टफोन से कोई रील्स देखकर समय बर्बाद करता है, तो कोई उसी फोन से कोडिंग सीखकर अपना करियर बना लेता है।"
-            },
-            {
-                id: 28, level: 3,
-                question: "कोडिंग में `IF (बारिश हो रही है) THEN (छाता लो) ELSE (चश्मा पहनो)`—इसे क्या कहते हैं?",
-                options: [
-                    "Conditional Logic (शर्त आधारित तर्क)",
-                    "अंधविश्वास",
-                    "रट्टा मारना"
-                ],
-                correct: 0,
-                hint: "कंप्यूटर प्रोग्रामिंग इसी 'अगर-तो' (If-Else) के तार्किक फैसलों पर चलती है।",
-                explanation: "शाबाश! जब आप 'If-Else' लॉजिक समझ जाते हैं, तो आप किसी भी प्रोग्रामिंग भाषा (JavaScript, Python) को आसानी से सीख सकते हैं।"
-            },
-            {
-                id: 29, level: 3,
-                question: "आप एक नया ऑनलाइन पोर्टल या छोटा बिज़नेस शुरू करना चाहते हैं। सबसे समझदारी भरा पहला कदम क्या है?",
-                options: [
-                    "पहले दिन लाखों रुपये का कर्ज लेना",
-                    "एक छोटा सा वर्किंग मॉडल (MVP) बनाना, असली लोगों से फीडबैक लेना और फिर सुधार करना",
-                    "सिर्फ दोस्तों को आइडिया सुनाते रहना"
-                ],
-                correct: 1,
-                hint: "छोटे स्तर पर प्रयोग करना और गलतियों से सीखना ही सफलता का वैज्ञानिक तरीका है।",
-                explanation: "उत्कृष्ट! इसे 'Lean Startup' तरीका कहते हैं—शुरुआत छोटे प्रोटोटाइप से करें और असली अनुभव से उसे बड़ा बनाएं।"
-            },
-            {
-                id: 30, level: 3,
-                question: "इस पूरे सफर का सबसे बड़ा सबक क्या है?",
-                options: [
-                    "दूसरों की बातों और सोशल मीडिया की अफवाहों में आकर समय बर्बाद करना",
-                    "खुद सोचना, सबूत मांगना, और नए जमाने के स्किल्स (Web & AI) सीखकर अपना भविष्य खुद बनाना",
-                    "सिर्फ दूसरों को दोष देते रहना"
-                ],
-                correct: 1,
-                hint: "आपका भविष्य किसी नेता या भाग्य के हाथ में नहीं, आपकी अपनी सोच और कौशल के हाथ में है।",
-                explanation: "बधाई हो! आपने तार्किक सोच के सभी आयामों को समझ लिया है। अब आप भविष्य के निर्माण के लिए तैयार हैं!"
-            }
-        ];
-
-        // 2. APPLICATION STATE (Saved in localStorage)
-        const UNLOCK_THRESHOLD = 80; // 80 points (8 correct answers) to unlock Lab
-        let questions = [];
-        let state = {
-            student: null, // { name, mobile, city }
-            score: 0,
-            solvedIds: [],
-            attemptedIds: [],
-            currentLevelFilter: 'all',
-            currentIndex: 0,
-            shuffleMode: false,
-            demoUnlocked: false,
-            activeQuestionOrder: [],
-            hasSyncedPass: false
-        };
-
-        // Philosophical quotes for the sidebar mentor
-        const mentorQuotes = [
-            "\"किसी बात को सिर्फ इसलिए मत मानो क्योंकि वह WhatsApp पर आई है या भीड़ उसे चिल्ला रही है। हर दावे से पूछो—'इसका सबूत क्या है?'\"",
-            "\"राजनेता आते-जाते रहेंगे, लेकिन आपके जीवन के ये कीमती साल दोबारा नहीं आएंगे। इन्हें अपने कौशल (Skills) बनाने में लगाएं।\"",
-            "\"जो इंसान सवाल पूछना बंद कर देता है, वह दूसरों के दिमाग का गुलाम बन जाता है।\"",
-            "\"कंप्यूटर और AI उसी के गुलाम हैं जो तार्किक (Logical) सोचना जानता है।\"",
-            "\"भीड़ हमेशा आसान रास्ता चुनती है, लेकिन समझदार व्यक्ति सत्य और तर्क का रास्ता चुनता है।\""
-        ];
-
-        // HTML Sandbox Starter Templates
-        const codeTemplates = {
-            bio: `<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { font-family: sans-serif; background: #f0f4f8; padding: 20px; text-align: center; }
-  .card { background: white; max-width: 400px; margin: auto; padding: 25px; border-radius: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-  h1 { color: #4f46e5; margin-bottom: 5px; }
-  .badge { background: #dcfce7; color: #166534; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
-  p { color: #475569; line-height: 1.6; }
-</style>
-</head>
-<body>
-  <div class="card">
-    <span class="badge">तार्किक चिंतक & वेब क्रिएटर</span>
-    <h1>नमस्ते, मैं आरव हूँ!</h1>
-    <p>मैंने अफवाहों पर ध्यान देना बंद कर दिया है और अब मैं <b>Web Designing</b> और <b>AI</b> सीखकर अपना भविष्य बना रहा हूँ।</p>
-  </div>
-</body>
-</html>`,
-            fact: `<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { font-family: sans-serif; background: #1e293b; color: white; padding: 20px; }
-  .alert-box { background: #0f172a; border-left: 5px solid #f59e0b; padding: 20px; border-radius: 10px; max-width: 450px; margin: auto; }
-  h2 { color: #fbbf24; margin-top: 0; }
-  button { background: #10b981; color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-</style>
-</head>
-<body>
-  <div class="alert-box">
-    <h2>⚠️ WhatsApp फॉरवर्ड सावधानी!</h2>
-    <p>किसी भी मैसेज को आगे भेजने से पहले 3 सवाल पूछें:</p>
-    <ul>
-      <li>क्या इसका कोई आधिकारिक सबूत है?</li>
-      <li>क्या यह मुझे डराने या भड़काने के लिए है?</li>
-    </ul>
-    <button onclick="this.innerText='मैं एक जिम्मेदार नागरिक हूँ! ✅'">मैं सहमत हूँ</button>
-  </div>
-</body>
-</html>`,
-            startup: `<!DOCTYPE html>
-<html>
-<head>
-<style>
-  body { font-family: sans-serif; background: linear-gradient(135deg, #4f46e5, #06b6d4); color: white; padding: 30px; text-align: center; }
-  .box { background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); padding: 25px; border-radius: 16px; max-width: 450px; margin: auto; }
-  h1 { margin-bottom: 10px; }
-</style>
-</head>
-<body>
-  <div class="box">
-    <h1>🚀 किसान & छात्र AI मददगार</h1>
-    <p>मेरा लक्ष्य है कि मेरे गाँव के हर छात्र को मुफ्त कोडिंग और हर किसान को सही मौसम व मंडी की जानकारी मिले।</p>
-    <p><b>Status:</b> प्रोटोटाइप तैयार हो रहा है!</p>
-  </div>
-</body>
-</html>`
-        };
-
-        // 3. INITIALIZATION
-        window.onload = async function() {
-            questions = [...defaultQuestions];
-            document.getElementById('count-all').innerText = questions.length;
-            
-            loadStateFromStorage();
-            checkStudentRegistrationGate();
-            applyLevelFilter('all', false);
-            updateDashboardUI();
-            renderCurrentQuestion();
-            
-            // Initialize Studio modules
-            loadCodeTemplate('bio');
-            buildSmartPrompt();
-            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('hi-IN');
-
-            // Fetch additional owner-curated questions from Google Sheet if configured
-            await fetchQuestionsFromGoogleSheet(false);
-        };
-
-        function isAppsScriptConfigured() {
-            return APPS_SCRIPT_URL && APPS_SCRIPT_URL !== "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL" && APPS_SCRIPT_URL.startsWith("http");
+        if (selectedIndex === q.correct) {
+            feedbackBox.className = 'feedback correct';
+            feedbackBox.innerText = `✅ बिल्कुल सही तर्क! ${q.hint}`;
+            document.getElementById('next-btn').classList.remove('hidden');
+            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+        } else {
+            feedbackBox.className = 'feedback wrong';
+            feedbackBox.innerText = `❌ यह सोच सही नहीं है। फिर से विचार करें: ${q.hint}`;
         }
+    }
 
-        // Fetch questions from Google Apps Script (GET returns [{level, q, options: [a,b,c], ans, hint}])
-        async function fetchQuestionsFromGoogleSheet(manualTrigger = false) {
-            const statusEl = document.getElementById('admin-script-status');
-            if (!isAppsScriptConfigured()) {
-                if (statusEl) statusEl.innerText = "कॉन्फ़िगर नहीं है (APPS_SCRIPT_URL सेट करें)";
-                if (manualTrigger) showToast("कृपया कोड में APPS_SCRIPT_URL सेट करें।", "info");
-                return;
-            }
-
-            try {
-                if (statusEl) statusEl.innerText = "Google Sheet से जुड़ रहा है...";
-                const response = await fetch(APPS_SCRIPT_URL, { method: 'GET' });
-                if (!response.ok) throw new Error("Network response error");
-                
-                const remoteData = await response.json();
-                if (Array.isArray(remoteData) && remoteData.length > 0) {
-                    const formattedRemote = remoteData.map((item, idx) => ({
-                        id: 5000 + idx,
-                        level: parseInt(item.level) || 1,
-                        question: item.q || item.question || "",
-                        options: Array.isArray(item.options) ? item.options : [item.a, item.b, item.c].filter(Boolean),
-                        correct: typeof item.ans === 'number' ? item.ans : (parseInt(item.ans) || 0),
-                        hint: item.hint || "सबूत और तर्क के आधार पर फिर से सोचें।",
-                        explanation: item.explanation || "सही तर्क चुनने के लिए शाबाश!"
-                    })).filter(q => q.question && q.options.length >= 2);
-
-                    questions = [...defaultQuestions, ...formattedRemote];
-                    document.getElementById('count-all').innerText = questions.length;
-                    applyLevelFilter(state.currentLevelFilter, true);
-                    
-                    if (statusEl) {
-                        statusEl.className = "font-bold text-emerald-400";
-                        statusEl.innerText = `सक्रिय (${formattedRemote.length} अतिरिक्त सवाल लोड हुए)`;
-                    }
-                    if (manualTrigger) showToast(`Google Sheet से ${formattedRemote.length} नए सवाल लोड किए गए!`, "success");
-                } else {
-                    if (statusEl) statusEl.innerText = "जुड़ा हुआ है (Sheet में अभी 0 अतिरिक्त सवाल हैं)";
-                }
-            } catch (err) {
-                console.warn("Google Sheet question fetch skipped:", err);
-                if (statusEl) {
-                    statusEl.className = "font-bold text-rose-400";
-                    statusEl.innerText = "कनेक्शन त्रुटि (URL या CORS जांचें)";
-                }
-            }
+    function nextQuestion() {
+        currentIndex++;
+        localStorage.setItem('completedQuestions', currentIndex);
+        if (currentIndex >= totalRequired) {
+            unlockPortal();
+        } else {
+            loadQuestion();
         }
+    }
+
+    function unlockPortal() {
+        document.getElementById('entry-gate').classList.add('hidden');
+        document.getElementById('quiz-section').classList.add('hidden');
+        document.getElementById('portal-section').classList.remove('hidden');
+    }
+
+    function submitDailyTask() {
+        const ans = document.getElementById('task-answer').value.trim();
+        if (!ans) { alert("कृपया पहले अपना जवाब लिखें।"); return; }
+        alert("आपका डेली टास्क सेव हो गया है! अब यह बाकी 9 साथियों को फैक्ट-चेक के लिए भेजा जाएगा।");
+        document.getElementById('task-answer').value = '';
+    }
+
+    function submitReview() {
+        const rev = document.getElementById('review-text').value.trim();
+        if (!rev) { alert("कृपया अपना रिव्यू लिखें।"); return; }
+        alert("आपका रिव्यू दर्ज कर लिया गया है। अगला रिव्यू लोड हो रहा है...");
+        document.getElementById('review-text').value = '';
+    }
+
+    init();
+</script>
 
-        // Student Registration Gate Logic
-        function checkStudentRegistrationGate() {
-            const modal = document.getElementById('registration-modal');
-            if (state.student && state.student.name && state.student.mobile) {
-                modal.classList.add('hidden');
-                applyStudentProfileToUI();
-            } else {
-                modal.classList.remove('hidden');
-            }
-        }
-
-        function handleStudentRegistration(e) {
-            e.preventDefault();
-            const name = document.getElementById('reg-name').value.trim();
-            const mobile = document.getElementById('reg-mobile').value.trim();
-            const city = document.getElementById('reg-city').value.trim();
-            const mobileErr = document.getElementById('reg-mobile-error');
-
-            if (!/^[0-9]{10}$/.test(mobile)) {
-                mobileErr.classList.remove('hidden');
-                return;
-            }
-            mobileErr.classList.add('hidden');
-
-            state.student = { name, mobile, city };
-            saveStateToStorage();
-            applyStudentProfileToUI();
-            document.getElementById('registration-modal').classList.add('hidden');
-            showToast(`स्वागत है ${name}! आपकी तार्किक यात्रा शुरू होती है।`, 'success');
-        }
-
-        function applyStudentProfileToUI() {
-            if (!state.student) return;
-            document.getElementById('header-student-name').innerText = state.student.name;
-            document.getElementById('cert-display-name').innerText = state.student.name;
-            document.getElementById('cert-display-city').innerText = `स्थान: ${state.student.city} • मोबाइल: ${state.student.mobile}`;
-            document.getElementById('cert-reg-summary').innerText = `${state.student.name} (${state.student.city} - ${state.student.mobile})`;
-        }
-
-        // Automatic & Manual Google Sheet Result Sync (POST with mode: 'no-cors')
-        async function syncResultToGoogleSheet(manualClick = false) {
-            if (!state.student) {
-                checkStudentRegistrationGate();
-                return;
-            }
-
-            const payload = {
-                name: state.student.name,
-                mobile: state.student.mobile,
-                city: state.student.city,
-                score: state.score,
-                correctCount: state.solvedIds.length,
-                totalAttempted: state.attemptedIds.length,
-                status: state.score >= UNLOCK_THRESHOLD ? 'PASS' : 'IN PROGRESS / FAIL',
-                timestamp: new Date().toISOString()
-            };
-
-            const syncBadge = document.getElementById('sheet-sync-badge');
-
-            if (!isAppsScriptConfigured()) {
-                if (manualClick) {
-                    syncBadge.classList.remove('hidden');
-                    showToast('डेमो मोड: APPS_SCRIPT_URL जोड़ने पर यह डेटा सीधे Google Sheet में जाएगा।', 'info');
-                }
-                return;
-            }
-
-            try {
-                await fetch(APPS_SCRIPT_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                });
-
-                syncBadge.classList.remove('hidden');
-                if (manualClick) {
-                    showToast('आपका रिजल्ट सफलतापूर्वक Academy Record (Google Sheet) में सेव हो गया है!', 'success');
-                }
-            } catch (error) {
-                console.error('Result sync failed:', error);
-                if (manualClick) {
-                    showToast('नेटवर्क त्रुटि: रिजल्ट सेव नहीं हो सका, कृपया पुनः प्रयास करें।', 'info');
-                }
-            }
-        }
-
-        function loadStateFromStorage() {
-            try {
-                const saved = localStorage.getItem('tark_portal_state');
-                if (saved) {
-                    const parsed = JSON.parse(saved);
-                    state = { ...state, ...parsed };
-                }
-            } catch (e) {
-                console.warn("Could not load saved state");
-            }
-        }
-
-        function saveStateToStorage() {
-            try {
-                localStorage.setItem('tark_portal_state', JSON.stringify({
-                    student: state.student,
-                    score: state.score,
-                    solvedIds: state.solvedIds,
-                    attemptedIds: state.attemptedIds,
-                    demoUnlocked: state.demoUnlocked,
-                    hasSyncedPass: state.hasSyncedPass
-                }));
-            } catch (e) {
-                console.warn("Could not save state");
-            }
-        }
-
-        // 4. QUIZ ARENA LOGIC
-        function filterLevel(lvl) {
-            applyLevelFilter(lvl, true);
-        }
-
-        function applyLevelFilter(lvl, shouldRender) {
-            state.currentLevelFilter = lvl;
-            
-            // Update filter button styles
-            document.querySelectorAll('.lvl-filter-btn').forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow');
-                btn.classList.add('bg-slate-800/80', 'text-slate-300');
-            });
-            const activeBtn = document.getElementById(`lvl-btn-${lvl}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-slate-800/80', 'text-slate-300');
-                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow');
-            }
-
-            // Build filtered list of indices
-            let filtered = questions
-                .map((q, idx) => ({ q, idx }))
-                .filter(item => lvl === 'all' || item.q.level === lvl)
-                .map(item => item.idx);
-
-            if (state.shuffleMode) {
-                filtered = shuffleArray(filtered);
-            }
-
-            state.activeQuestionOrder = filtered;
-            state.currentIndex = 0;
-
-            if (shouldRender) {
-                renderCurrentQuestion();
-            }
-        }
-
-        function toggleShuffleMode() {
-            state.shuffleMode = !state.shuffleMode;
-            const label = document.getElementById('shuffle-label');
-            label.innerText = state.shuffleMode ? 'रैंडम (Shuffle)' : 'क्रमवार (Sequential)';
-            applyLevelFilter(state.currentLevelFilter, true);
-            showToast(state.shuffleMode ? 'सवाल रैंडम क्रम में कर दिए गए हैं' : 'सवाल क्रमवार लगा दिए गए हैं', 'info');
-        }
-
-        function shuffleArray(array) {
-            let arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
-            }
-            return arr;
-        }
-
-        function renderCurrentQuestion() {
-            if (state.activeQuestionOrder.length === 0) return;
-
-            const actualQIndex = state.activeQuestionOrder[state.currentIndex];
-            const qObj = questions[actualQIndex];
-            const isAlreadySolved = state.solvedIds.includes(qObj.id);
-
-            // Update Meta Badges
-            const levelNames = {
-                1: 'लेवल 1: अफवाह vs सच',
-                2: 'लेवल 2: दार्शनिक दृष्टिकोण',
-                3: 'लेवल 3: टेक & AI लॉजिक'
-            };
-            document.getElementById('q-level-badge').innerText = levelNames[qObj.level] || 'तार्किक सवाल';
-            document.getElementById('q-current-num').innerText = state.currentIndex + 1;
-            document.getElementById('q-total-num').innerText = state.activeQuestionOrder.length;
-
-            const statusTag = document.getElementById('q-status-tag');
-            if (isAlreadySolved) {
-                statusTag.classList.remove('hidden');
-            } else {
-                statusTag.classList.add('hidden');
-            }
-
-            // Set Question Text
-            document.getElementById('question-text').innerText = qObj.question;
-
-            // Hide Feedback Box initially
-            const feedbackBox = document.getElementById('feedback-box');
-            feedbackBox.classList.add('hidden');
-
-            // Render Options
-            const optionsContainer = document.getElementById('options-container');
-            optionsContainer.innerHTML = '';
-
-            const letters = ['A', 'B', 'C', 'D'];
-            qObj.options.forEach((optText, optIdx) => {
-                const btn = document.createElement('button');
-                btn.id = `opt-btn-${optIdx}`;
-                btn.onclick = () => handleOptionSelect(optIdx);
-                
-                let baseClasses = "w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 group ";
-                if (isAlreadySolved && optIdx === qObj.correct) {
-                    baseClasses += "bg-emerald-950/40 border-emerald-500/60 text-emerald-200";
-                } else {
-                    baseClasses += "bg-slate-900/70 hover:bg-slate-800/90 border-slate-700/80 hover:border-indigo-500/50 text-slate-200";
-                }
-                
-                btn.className = baseClasses;
-                btn.innerHTML = `
-                    <span class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-sm shrink-0 transition ${isAlreadySolved && optIdx === qObj.correct ? 'bg-emerald-500 text-slate-950' : 'bg-slate-800 text-indigo-300 group-hover:bg-indigo-600 group-hover:text-white'}">
-                        ${letters[optIdx]}
-                    </span>
-                    <span class="text-sm sm:text-base leading-relaxed pt-0.5">${optText}</span>
-                `;
-                optionsContainer.appendChild(btn);
-            });
-
-            // If already solved, show the explanation calmly
-            if (isAlreadySolved) {
-                showFeedback('success', 'आप यह सवाल पहले ही हल कर चुके हैं!', qObj.explanation);
-            }
-
-            // Update Prev/Next button states
-            document.getElementById('btn-prev').disabled = state.currentIndex === 0;
-            
-            // Rotate philosopher quote occasionally
-            const quoteEl = document.getElementById('philosopher-quote');
-            quoteEl.innerText = mentorQuotes[state.currentIndex % mentorQuotes.length];
-        }
-
-        function handleOptionSelect(selectedIndex) {
-            const actualQIndex = state.activeQuestionOrder[state.currentIndex];
-            const qObj = questions[actualQIndex];
-            const isCorrect = selectedIndex === qObj.correct;
-
-            // Track attempted question IDs
-            if (!state.attemptedIds.includes(qObj.id)) {
-                state.attemptedIds.push(qObj.id);
-                saveStateToStorage();
-            }
-
-            // Reset option styles first
-            qObj.options.forEach((_, idx) => {
-                const b = document.getElementById(`opt-btn-${idx}`);
-                b.className = "w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 bg-slate-900/70 border-slate-700/80 text-slate-200";
-            });
-
-            const selectedBtn = document.getElementById(`opt-btn-${selectedIndex}`);
-
-            if (isCorrect) {
-                // Highlight Right Answer
-                selectedBtn.className = "w-full text-left p-4 rounded-xl border-2 border-emerald-500 bg-emerald-950/40 text-emerald-100 flex items-start gap-3.5 shadow-lg shadow-emerald-500/10";
-                
-                // Award points if not solved before
-                if (!state.solvedIds.includes(qObj.id)) {
-                    state.solvedIds.push(qObj.id);
-                    const prevScore = state.score;
-                    state.score += 10;
-                    saveStateToStorage();
-                    updateDashboardUI();
-
-                    showToast('+10 तार्किक अंक मिले!', 'success');
-
-                    // Auto-sync to Google Sheet when student reaches Pass threshold (80 points)
-                    if (prevScore < UNLOCK_THRESHOLD && state.score >= UNLOCK_THRESHOLD) {
-                        state.hasSyncedPass = true;
-                        saveStateToStorage();
-                        syncResultToGoogleSheet(false);
-                        setTimeout(() => {
-                            showToast('🎉 बधाई हो! आप PASS हो गए हैं और Web & AI लैब अनलॉक हो गई है!', 'unlock');
-                        }, 600);
-                    }
-                }
-
-                document.getElementById('q-status-tag').classList.remove('hidden');
-                showFeedback('success', 'बिल्कुल सटीक तर्क! (+10 अंक)', qObj.explanation);
-            } else {
-                // Highlight Wrong Answer gently & show Socratic Hint
-                selectedBtn.className = "w-full text-left p-4 rounded-xl border border-amber-500/60 bg-amber-950/20 text-amber-100 flex items-start gap-3.5";
-                showFeedback('hint', 'रुकिए और फिर से सोचिए (आचार्य तर्क का संकेत):', `${qObj.hint} — ऊपर दिए गए विकल्पों में से दोबारा चुनें!`);
-            }
-        }
-
-        function showHintManually() {
-            const actualQIndex = state.activeQuestionOrder[state.currentIndex];
-            const qObj = questions[actualQIndex];
-            showFeedback('hint', 'दार्शनिक संकेत (Hint):', qObj.hint);
-        }
-
-        function showFeedback(type, title, message) {
-            const box = document.getElementById('feedback-box');
-            const icon = document.getElementById('feedback-icon');
-            const titleEl = document.getElementById('feedback-title');
-            const textEl = document.getElementById('feedback-text');
-
-            box.classList.remove('hidden', 'bg-emerald-950/40', 'border-emerald-500/40', 'bg-amber-950/30', 'border-amber-500/40');
-            icon.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'bg-amber-500/20', 'text-amber-400');
-
-            if (type === 'success') {
-                box.classList.add('bg-emerald-950/40', 'border-emerald-500/40');
-                icon.classList.add('bg-emerald-500/20', 'text-emerald-400');
-                icon.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
-                titleEl.className = 'font-bold text-base text-emerald-300';
-                textEl.className = 'text-sm leading-relaxed text-emerald-100/90';
-            } else {
-                box.classList.add('bg-amber-950/30', 'border-amber-500/40');
-                icon.classList.add('bg-amber-500/20', 'text-amber-400');
-                icon.innerHTML = '<i class="fa-solid fa-lightbulb"></i>';
-                titleEl.className = 'font-bold text-base text-amber-300';
-                textEl.className = 'text-sm leading-relaxed text-amber-100/90';
-            }
-
-            titleEl.innerText = title;
-            textEl.innerText = message;
-        }
-
-        function nextQuestion() {
-            if (state.currentIndex < state.activeQuestionOrder.length - 1) {
-                state.currentIndex++;
-                renderCurrentQuestion();
-            } else {
-                showToast('आप इस श्रेणी के आखिरी सवाल तक पहुँच गए हैं!', 'info');
-                state.currentIndex = 0;
-                renderCurrentQuestion();
-            }
-        }
-
-        function prevQuestion() {
-            if (state.currentIndex > 0) {
-                state.currentIndex--;
-                renderCurrentQuestion();
-            }
-        }
-
-        // 5. DASHBOARD & UNLOCK SYSTEM
-        function isLabUnlocked() {
-            return state.score >= UNLOCK_THRESHOLD || state.demoUnlocked;
-        }
-
-        function updateDashboardUI() {
-            const pct = Math.min(100, Math.round((state.score / UNLOCK_THRESHOLD) * 100));
-            
-            // Header & Mobile Bars
-            document.getElementById('header-score').innerText = state.score;
-            document.getElementById('progress-text').innerText = `${state.score} / ${UNLOCK_THRESHOLD} अंक`;
-            document.getElementById('unlock-progress-bar').style.width = `${pct}%`;
-            
-            document.getElementById('mobile-progress-text').innerText = `${state.score} / ${UNLOCK_THRESHOLD} अंक`;
-            document.getElementById('mobile-progress-bar').style.width = `${pct}%`;
-
-            // Locked screen progress
-            document.getElementById('locked-screen-score').innerText = `${state.score} / ${UNLOCK_THRESHOLD} अंक`;
-            document.getElementById('locked-screen-bar').style.width = `${pct}%`;
-
-            // Sidebar stats
-            document.getElementById('stat-solved').innerText = `${state.solvedIds.length} / ${questions.length}`;
-            document.getElementById('cert-score').innerText = `${state.score} अंक`;
-
-            // Rank calculation
-            const rankEl = document.getElementById('stat-rank');
-            if (state.score >= 150) rankEl.innerText = 'महा-दार्शनिक (Master)';
-            else if (state.score >= 80) rankEl.innerText = 'तार्किक क्रिएटर (Creator)';
-            else if (state.score >= 40) rankEl.innerText = 'सजग नागरिक (Aware)';
-            else rankEl.innerText = 'जिज्ञासु (Beginner)';
-
-            // Unlock State Updates
-            const unlocked = isLabUnlocked();
-            const lockIcon = document.getElementById('lab-lock-icon');
-            const labBadge = document.getElementById('lab-badge');
-            const sidebarLock = document.getElementById('sidebar-lock-badge');
-
-            if (unlocked) {
-                lockIcon.className = 'fa-solid fa-unlock text-emerald-400';
-                labBadge.classList.remove('hidden');
-                sidebarLock.className = 'fa-solid fa-unlock text-emerald-400';
-                
-                document.getElementById('lab-locked-screen').classList.add('hidden');
-                document.getElementById('lab-unlocked-content').classList.remove('hidden');
-            } else {
-                lockIcon.className = 'fa-solid fa-lock text-amber-400';
-                labBadge.classList.add('hidden');
-                sidebarLock.className = 'fa-solid fa-lock text-amber-400';
-
-                document.getElementById('lab-locked-screen').classList.remove('hidden');
-                document.getElementById('lab-unlocked-content').classList.add('hidden');
-            }
-        }
-
-        function switchMainView(viewName) {
-            const arenaView = document.getElementById('view-arena');
-            const labView = document.getElementById('view-lab');
-            const tabArena = document.getElementById('tab-arena');
-            const tabLab = document.getElementById('tab-lab');
-
-            if (viewName === 'arena') {
-                arenaView.classList.remove('hidden');
-                labView.classList.add('hidden');
-                tabArena.className = "px-4 py-2.5 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition";
-                tabLab.className = "px-4 py-2.5 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700 transition relative";
-            } else {
-                arenaView.classList.add('hidden');
-                labView.classList.remove('hidden');
-                tabLab.className = "px-4 py-2.5 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition relative";
-                tabArena.className = "px-4 py-2.5 rounded-xl font-semibold text-sm sm:text-base flex items-center gap-2 bg-slate-800/80 text-slate-300 hover:bg-slate-800 border border-slate-700 transition";
-                updateDashboardUI();
-            }
-        }
-
-        function demoUnlockLab() {
-            state.demoUnlocked = true;
-            saveStateToStorage();
-            updateDashboardUI();
-            showToast('डेमो प्रीव्यू मोड: Web & AI लैब अनलॉक कर दी गई है!', 'success');
-        }
-
-        function confirmResetProgress() {
-            // Custom inline confirmation reset without browser confirm()
-            state.score = 0;
-            state.solvedIds = [];
-            state.attemptedIds = [];
-            state.demoUnlocked = false;
-            state.hasSyncedPass = false;
-            state.currentIndex = 0;
-            document.getElementById('sheet-sync-badge').classList.add('hidden');
-            saveStateToStorage();
-            updateDashboardUI();
-            renderCurrentQuestion();
-            switchMainView('arena');
-            showToast('आपकी प्रोग्रेस रीसेट कर दी गई है। नई शुरुआत करें!', 'info');
-        }
-
-        // 6. STUDIO MODULES (HTML SANDBOX, PROMPT BUILDER, CERTIFICATE)
-        function switchStudioModule(mod) {
-            ['web', 'ai', 'cert'].forEach(m => {
-                document.getElementById(`studio-mod-${m}`).classList.add('hidden');
-                const btn = document.getElementById(`mod-btn-${m}`);
-                btn.className = "px-4 py-2 rounded-xl text-sm font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center gap-2";
-            });
-
-            document.getElementById(`studio-mod-${mod}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`mod-btn-${mod}`);
-            activeBtn.className = "px-4 py-2 rounded-xl text-sm font-bold bg-emerald-600 text-white shadow transition flex items-center gap-2";
-        }
-
-        function loadCodeTemplate(key) {
-            const editor = document.getElementById('html-code-editor');
-            editor.value = codeTemplates[key] || codeTemplates.bio;
-            runLiveCode();
-        }
-
-        function runLiveCode() {
-            const code = document.getElementById('html-code-editor').value;
-            const iframe = document.getElementById('html-live-preview');
-            const doc = iframe.contentDocument || iframe.contentWindow.document;
-            doc.open();
-            doc.write(code);
-            doc.close();
-        }
-
-        function buildSmartPrompt() {
-            const role = document.getElementById('pb-role').value;
-            const goal = document.getElementById('pb-goal').value || 'एक नई वेबसाइट बनाना';
-            const format = document.getElementById('pb-format').value;
-            
-            const finalPrompt = `"${role} की तरह काम करते हुए, मुझे '${goal}' के लिए मार्गदर्शन दें। कृपया अपना पूरा जवाब ${format} प्रस्तुत करें।"`;
-            document.getElementById('pb-output').innerText = finalPrompt;
-        }
-
-        function copyBuiltPrompt() {
-            const text = document.getElementById('pb-output').innerText;
-            copyTextToClipboard(text);
-            showToast('AI प्रॉम्प्ट क्लिपबोर्ड पर कॉपी हो गया!', 'success');
-        }
-
-        // 7. ADMIN PIN GATE & PROTECTED QUESTION BUILDER (Owner Only)
-        function openAdminPinModal() {
-            document.getElementById('admin-pin-input').value = '';
-            document.getElementById('admin-pin-modal').classList.remove('hidden');
-            setTimeout(() => document.getElementById('admin-pin-input').focus(), 100);
-        }
-
-        function closeAdminPinModal() {
-            document.getElementById('admin-pin-modal').classList.add('hidden');
-        }
-
-        function verifyAdminPin(e) {
-            e.preventDefault();
-            const enteredPin = document.getElementById('admin-pin-input').value.trim();
-            if (enteredPin === ADMIN_PIN) {
-                closeAdminPinModal();
-                openAdminModal();
-            } else {
-                showToast('गलत Admin PIN! केवल पोर्टल संचालक ही इसे खोल सकते हैं।', 'info');
-                document.getElementById('admin-pin-input').value = '';
-            }
-        }
-
-        function openAdminModal() {
-            document.getElementById('admin-modal').classList.remove('hidden');
-            const statusEl = document.getElementById('admin-script-status');
-            if (isAppsScriptConfigured()) {
-                statusEl.className = "font-bold text-emerald-400";
-                statusEl.innerText = "कॉन्फ़िगर किया गया है (Connected)";
-            } else {
-                statusEl.className = "font-bold text-amber-400";
-                statusEl.innerText = "APPS_SCRIPT_URL सेट नहीं है";
-            }
-        }
-
-        function closeAdminModal() {
-            document.getElementById('admin-modal').classList.add('hidden');
-        }
-
-        function handleAddQuestion(e) {
-            e.preventDefault();
-            const newQ = {
-                id: Date.now(),
-                level: parseInt(document.getElementById('new-q-level').value),
-                question: document.getElementById('new-q-text').value.trim(),
-                options: [
-                    document.getElementById('new-q-opt0').value.trim(),
-                    document.getElementById('new-q-opt1').value.trim(),
-                    document.getElementById('new-q-opt2').value.trim()
-                ],
-                correct: parseInt(document.getElementById('new-q-correct').value),
-                hint: document.getElementById('new-q-hint').value.trim(),
-                explanation: document.getElementById('new-q-exp').value.trim()
-            };
-
-            questions.push(newQ);
-            document.getElementById('count-all').innerText = questions.length;
-            document.getElementById('add-question-form').reset();
-            closeAdminModal();
-            applyLevelFilter(state.currentLevelFilter, true);
-            showToast(`सवाल प्रीव्यू में जुड़ गया! स्थायी रूप से जोड़ने के लिए इसे Google Sheet में डालें।`, 'success');
-        }
-
-        function exportQuestionsJSON() {
-            const sheetFormat = questions.map(q => ({
-                level: q.level,
-                q: q.question,
-                options: q.options,
-                ans: q.correct,
-                hint: q.hint
-            }));
-            const dataStr = JSON.stringify(sheetFormat, null, 2);
-            copyTextToClipboard(dataStr);
-            showToast(`सभी ${questions.length} सवालों का JSON डेटा कॉपी हो गया है!`, 'success');
-        }
-
-        // Utility: Safe Clipboard Copy (works inside iFrames)
-        function copyTextToClipboard(text) {
-            const tempArea = document.createElement('textarea');
-            tempArea.value = text;
-            document.body.appendChild(tempArea);
-            tempArea.select();
-            try {
-                document.execCommand('copy');
-            } catch (err) {
-                console.error('Copy failed', err);
-            }
-            document.body.removeChild(tempArea);
-        }
-
-        // Utility: Custom Toast Notification
-        function showToast(msg, type = 'info') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            let colors = 'bg-slate-800 border-slate-700 text-white';
-            if (type === 'success') colors = 'bg-emerald-900/95 border-emerald-500 text-emerald-100';
-            if (type === 'unlock') colors = 'bg-indigo-900/95 border-amber-400 text-amber-200 font-bold';
-
-            toast.className = `px-4 py-3 rounded-xl border shadow-2xl text-xs sm:text-sm flex items-center gap-2.5 animate-fade-in pointer-events-auto ${colors}`;
-            toast.innerHTML = `<i class="fa-solid fa-sparkles"></i> <span>${msg}</span>`;
-            
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.opacity = '0';
-                toast.style.transition = 'opacity 0.3s ease';
-                setTimeout(() => toast.remove(), 300);
-            }, 3200);
-        }
-    </script>
 </body>
 </html>
