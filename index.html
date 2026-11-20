@@ -18,33 +18,13 @@
         body { background-color: var(--bg); color: var(--text); margin: 0; padding: 15px; line-height: 1.7; }
         .container { max-width: 780px; margin: 20px auto; background: var(--card); padding: 30px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.09); }
         h1, h2 { color: var(--primary); margin-top: 0; }
-        
-        /* एंट्री गेट स्टाइल */
-        .warning-banner {
-            background: #fef2f2;
-            border-left: 5px solid var(--danger);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-        .manifesto-list {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            padding: 20px 25px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-        }
-        .manifesto-list li {
-            margin-bottom: 12px;
-            font-size: 16px;
-        }
+        .warning-banner { background: #fef2f2; border-left: 5px solid var(--danger); padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .manifesto-list { background: #f8fafc; border: 1px solid #e2e8f0; padding: 20px 25px; border-radius: 8px; margin-bottom: 25px; }
+        .manifesto-list li { margin-bottom: 12px; font-size: 16px; }
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
         .btn { background: var(--accent); color: #fff; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn:hover { background: #1d4ed8; }
         .btn-exit { background: #64748b; color: #fff; border: none; padding: 14px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; }
-        .btn-exit:hover { background: #475569; }
-
-        /* क्विज़ और पोर्टल स्टाइल */
         .progress-bar { width: 100%; background: #e2e8f0; border-radius: 8px; height: 12px; margin: 15px 0; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--success); width: 0%; transition: width 0.3s ease; }
         .story-box { background: #eff6ff; border-left: 4px solid var(--accent); padding: 16px; border-radius: 6px; margin-bottom: 20px; }
@@ -54,7 +34,7 @@
         .feedback.correct { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
         .feedback.wrong { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
         .hidden { display: none; }
-        textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; margin-top: 8px; resize: vertical; }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; margin-top: 8px; resize: vertical; }
         .peer-card { border: 1px solid #e2e8f0; padding: 16px; border-radius: 8px; margin-top: 15px; background: #f8fafc; }
     </style>
 </head>
@@ -62,21 +42,19 @@
 
 <div class="container">
 
-    <!-- चरण 0: प्रवेश से पहले की स्पष्ट चेतावनी (Entry Gate) -->
+    <!-- चरण 0: प्रवेश चेतावनी -->
     <div id="entry-gate">
         <div class="warning-banner">
             <h2 style="color: var(--danger); margin-bottom: 8px;">⚠️ प्रवेश करने से पहले खुद को तैयार कर लें</h2>
             <p style="margin: 0; font-weight: 500;">यह कोई साधारण वेबसाइट या टाइमपास पोर्टल नहीं है। आगे बढ़ने से पहले नीचे लिखी हर बात को ध्यान से पढ़ें:</p>
         </div>
-
         <ul class="manifesto-list">
             <li><strong>सिर्फ तार्किक सोच वालों के लिए:</strong> यहाँ केवल उन्हीं को प्रवेश मिलेगा जो तार्किक (Logical) सोच रखते हैं और सही व गलत के बीच फर्क करना जानते हैं।</li>
             <li><strong>आपकी अपनी मर्जी:</strong> यहाँ आना पूरी तरह आपकी अपनी मर्जी है, और यहाँ से जाना भी। अगर आगे चलकर आपको कोई भी सवाल खराब या असहज लगता है, तो आप इसे तुरंत छोड़ सकते हैं—यहाँ आपका कोई काम नहीं है।</li>
             <li><strong>पाखंड और अंधविश्वास से दूरी:</strong> यह पोर्टल सिर्फ उनके लिए है जो सही फैसले लेना जानते हैं और अपना भविष्य बनाना चाहते हैं। समाज में चल रहे पाखंड और अंधविश्वास को छोड़कर ही यहाँ आएं। अगर आप इन सब चीजों को मानते हैं, तो कृपया इस पोर्टल से दूर रहें।</li>
             <li><strong>पहले परीक्षा, फिर सीख:</strong> पहले हम यह जांचेंगे कि आपकी सोच कैसी है। 100 सवालों के इस पड़ाव को पार करने के बाद ही हम आपको सिखाएंगे और बताएंगे कि आप अपना भविष्य कैसे बना सकते हैं।</li>
-            <li><strong>आत्म-निर्भर समझ:</strong> इस प्रक्रिया से गुजरने के बाद आप खुद इस सच के करीब होंगे कि आपको अपने जीवन में क्या करना है—किसी के सहारे या अंधविश्वास के पीछे भागने की जरूरत नहीं पड़ेगी।</li>
+            <li><strong>आत्म-निर्भर समझ:</strong> इस प्रक्रिया से गुजरने के बाद आप खुद इस सच के करीब होंगे कि आपको अपने जीवन में क्या करना है।</li>
         </ul>
-
         <div class="btn-group">
             <button class="btn" onclick="acceptAndStart()">मैं सहमत हूँ और तैयार हूँ — आगे बढ़ें ➔</button>
             <button class="btn-exit" onclick="exitPortal()">मैं सहमत नहीं हूँ — बाहर जाएं</button>
@@ -90,57 +68,61 @@
             <span id="q-counter" style="font-weight: bold; color: #64748b;">सवाल 1 / 100</span>
         </div>
         <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
-        
         <div class="story-box">
             <strong>परिस्थिति:</strong>
             <p id="story-text" style="margin: 5px 0 0 0;"></p>
         </div>
-        
         <h3 id="question-text" style="font-size: 18px;"></h3>
         <div id="options-container"></div>
         <div id="feedback-box" class="feedback"></div>
         <button id="next-btn" class="btn hidden" onclick="nextQuestion()">अगला सवाल ➔</button>
     </div>
 
-    <!-- चरण 2: अनलॉक होने वाला डेली टास्क और पीर-रिव्यू पोर्टल -->
+    <!-- चरण 2: डेली टास्क और 9-पीर रिव्यू पोर्टल -->
     <div id="portal-section" class="hidden">
         <h2 style="color: var(--success);">🎉 स्वागत है! आपने तार्किक सोच की पहली परीक्षा पास कर ली है</h2>
-        <p>अब आपका मुख्य पोर्टल खुल चुका है। यहाँ आप रोज़ाना के प्रैक्टिकल टास्क पूरे करेंगे और बाकी 9 साथियों के काम की जाँच (Fact-Check) करेंगे।</p>
+        <p>अब आप रोज़ाना के प्रैक्टिकल टास्क पूरे कर सकते हैं और बाकी 9 साथियों के काम की जाँच (Fact-Check) कर सकते हैं।</p>
         
+        <div style="margin-bottom: 20px;">
+            <label><strong>आपका पूरा नाम / छात्र ID:</strong></label>
+            <input type="text" id="student-name" placeholder="उदाहरण: आरव शर्मा (Roll 01)">
+        </div>
+
         <div class="story-box">
-            <h3>आज का डेली टास्क (Day 1)</h3>
+            <h3>आज का डेली टास्क</h3>
             <p><strong>दिनचर्या का काम:</strong> आज अपने घर, स्कूल या मोहल्ले में किसी एक ऐसी बात, खबर या मान्यता को परखें जिसे लोग बिना सोचे मान रहे हैं। पता लगाएं कि उसका असली सच और तर्क क्या है।</p>
             <textarea id="task-answer" rows="4" placeholder="अपना अनुभव और तर्क यहाँ विस्तार से लिखें..."></textarea>
-            <button class="btn" onclick="submitDailyTask()">टास्क सबमिट करें</button>
+            <button class="btn" id="submit-task-btn" onclick="submitDailyTask()">टास्क सबमिट करें</button>
         </div>
 
         <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 25px 0;">
 
-        <h3>साथियों के काम की जाँच करें (Peer Review - 1/9)</h3>
-        <div class="peer-card">
-            <p><strong>साथी #2 का जवाब:</strong> "मुझे व्हाट्सएप पर एक मैसेज मिला कि कल से स्कूल बंद रहेंगे। मैंने बिना जांचे अपने दोस्तों को भेज दिया क्योंकि उस पर 'जरूरी सूचना' लिखा था।"</p>
-            <label><strong>क्या यह तरीका सही था? अपना फैक्ट-चेक और सुझाव लिखें:</strong></label>
-            <textarea id="review-text" rows="3" placeholder="बताएं कि इसमें क्या गलती थी और सही तरीका क्या होना चाहिए..."></textarea>
-            <button class="btn" style="background: var(--success);" onclick="submitReview()">रिव्यू सबमिट करें</button>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>साथियों के काम की जाँच करें (Peer Review)</h3>
+            <button class="btn" style="padding: 8px 14px; font-size: 14px;" onclick="loadPeerTasks()">🔄 नए जवाब लोड करें</button>
+        </div>
+        <div id="peer-reviews-container">
+            <p style="color: #64748b;">साथियों के जवाब लोड हो रहे हैं...</p>
         </div>
     </div>
 
 </div>
 
-<!-- आपकी 100 सवालों वाली फाइल -->
 <script src="questions.js"></script>
 
 <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyewTrYSdFgqaZvCkFdwRLOotlEf4OPhfhI7_p30xcFpF9nb_Pd1SQeMshTlQTk7ftOrw/exec";
+
     let currentIndex = parseInt(localStorage.getItem('completedQuestions')) || 0;
     let gateAccepted = localStorage.getItem('gateAccepted') === 'true';
     const totalRequired = typeof questionsData !== 'undefined' ? questionsData.length : 100;
 
     function init() {
+        const savedName = localStorage.getItem('studentName');
+        if (savedName) document.getElementById('student-name').value = savedName;
+
         if (!gateAccepted) {
-            // सबसे पहले एंट्री गेट दिखाएं
             document.getElementById('entry-gate').classList.remove('hidden');
-            document.getElementById('quiz-section').classList.add('hidden');
-            document.getElementById('portal-section').classList.add('hidden');
         } else if (currentIndex >= totalRequired) {
             unlockPortal();
         } else {
@@ -155,13 +137,7 @@
     }
 
     function exitPortal() {
-        document.body.innerHTML = `
-            <div style="max-width:600px; margin:80px auto; text-align:center; font-family:sans-serif; padding:30px; background:#fff; border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.08);">
-                <h2 style="color:#dc2626;">आपने बाहर जाने का विकल्प चुना है</h2>
-                <p style="color:#475569; font-size:16px;">यह पोर्टल केवल उन्हीं के लिए है जो तार्किक सोच और सत्य की राह पर चलने के लिए तैयार हैं। जब आप तैयार हों, तब वापस आ सकते हैं।</p>
-                <button onclick="location.reload()" style="margin-top:15px; padding:10px 20px; background:#2563eb; color:#fff; border:none; border-radius:6px; cursor:pointer;">वापस जाएं</button>
-            </div>
-        `;
+        document.body.innerHTML = `<div style="max-width:600px; margin:80px auto; text-align:center; font-family:sans-serif; padding:30px; background:#fff; border-radius:12px;"><h2 style="color:#dc2626;">आपने बाहर जाने का विकल्प चुना है</h2><p>यह पोर्टल केवल उन्हीं के लिए है जो तार्किक सोच और सत्य की राह पर चलने के लिए तैयार हैं।</p><button onclick="location.reload()" style="margin-top:15px; padding:10px 20px; background:#2563eb; color:#fff; border:none; border-radius:6px; cursor:pointer;">वापस जाएं</button></div>`;
     }
 
     function startQuiz() {
@@ -221,20 +197,73 @@
         document.getElementById('entry-gate').classList.add('hidden');
         document.getElementById('quiz-section').classList.add('hidden');
         document.getElementById('portal-section').classList.remove('hidden');
+        loadPeerTasks();
     }
 
-    function submitDailyTask() {
+    async function submitDailyTask() {
+        const name = document.getElementById('student-name').value.trim();
         const ans = document.getElementById('task-answer').value.trim();
-        if (!ans) { alert("कृपया पहले अपना जवाब लिखें।"); return; }
-        alert("आपका डेली टास्क सेव हो गया है! अब यह बाकी 9 साथियों को फैक्ट-चेक के लिए भेजा जाएगा।");
-        document.getElementById('task-answer').value = '';
+        if (!name || !ans) { alert("कृपया अपना नाम और जवाब दोनों लिखें।"); return; }
+        localStorage.setItem('studentName', name);
+
+        const btn = document.getElementById('submit-task-btn');
+        btn.disabled = true; btn.innerText = "सेव हो रहा है...";
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "submitTask", studentName: name, taskAnswer: ans })
+            });
+            alert("आपका डेली टास्क Google Sheet में सेव हो गया है!");
+            document.getElementById('task-answer').value = '';
+            loadPeerTasks();
+        } catch (err) {
+            alert("डेटा भेजने में त्रुटि हुई। कृपया इंटरनेट या सीट की परमिशन चेक करें।");
+        }
+        btn.disabled = false; btn.innerText = "टास्क सबमिट करें";
     }
 
-    function submitReview() {
-        const rev = document.getElementById('review-text').value.trim();
-        if (!rev) { alert("कृपया अपना रिव्यू लिखें।"); return; }
-        alert("आपका रिव्यू दर्ज कर लिया गया है। अगला रिव्यू लोड हो रहा है...");
-        document.getElementById('review-text').value = '';
+    async function loadPeerTasks() {
+        const container = document.getElementById('peer-reviews-container');
+        container.innerHTML = "<p>साथियों के जवाब लोड हो रहे हैं...</p>";
+        try {
+            const res = await fetch(SCRIPT_URL);
+            const tasks = await res.json();
+            if (tasks.length === 0) {
+                container.innerHTML = "<p style='color:#64748b;'>अभी तक किसी साथी ने टास्क सबमिट नहीं किया है।</p>";
+                return;
+            }
+            container.innerHTML = "";
+            tasks.forEach((t, idx) => {
+                const card = document.createElement('div');
+                card.className = 'peer-card';
+                card.innerHTML = `
+                    <p><strong>साथी #${idx + 1} (${t.studentName}):</strong> "${t.taskAnswer}"</p>
+                    <textarea id="rev-${idx}" rows="2" placeholder="इस जवाब का फैक्ट-चेक और अपना तर्क लिखें..."></textarea>
+                    <button class="btn" style="background: var(--success); padding: 8px 16px; font-size: 14px;" onclick="submitReview('${t.studentName}', ${idx})">रिव्यू सबमिट करें</button>
+                `;
+                container.appendChild(card);
+            });
+        } catch (err) {
+            container.innerHTML = "<p style='color:#dc2626;'>जवाब लोड नहीं हो सके। कृपया पेज रिफ्रेश करें।</p>";
+        }
+    }
+
+    async function submitReview(targetStudent, idx) {
+        const reviewer = document.getElementById('student-name').value.trim();
+        const revText = document.getElementById(`rev-${idx}`).value.trim();
+        if (!reviewer || !revText) { alert("कृपया ऊपर अपना नाम और नीचे रिव्यू लिखें।"); return; }
+
+        try {
+            await fetch(SCRIPT_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "submitReview", reviewerName: reviewer, targetStudent: targetStudent, reviewText: revText })
+            });
+            alert("आपका फैक्ट-चेक रिव्यू दर्ज कर लिया गया है!");
+            document.getElementById(`rev-${idx}`).value = '';
+        } catch (err) {
+            alert("रिव्यू सेव करने में समस्या आई।");
+        }
     }
 
     init();
