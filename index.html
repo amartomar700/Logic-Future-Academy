@@ -641,7 +641,7 @@
                     <div>
                         <span class="course-tag">IT & Web</span>
                         <h4>Web Design (वेब डिज़ाइनिंग)</h4>
-                        <p>HTML, CSS और आधुनिक रिस्पॉन्सिव लेआउट के माध्यम से प्रोफेशनल वेबसाइट बनाना और GitHub पर लाइव करना।</p>
+                        <p>HTML, CSS और आधुनिक रिस्पॉन्सिव लेआउट के माध्यम से प्रोफेशनल वेबसाइट बनाना और लाइव होस्ट करना।</p>
                     </div>
                     <a href="#admission-charter" class="course-link">प्रवेश परीक्षा दें ➔</a>
                 </div>
@@ -808,21 +808,19 @@
                     <p style="margin: 0 0 8px 0;"><strong>📧 आधिकारिक ईमेल (Email):</strong><br>
                     <a href="mailto:logicfutureacademy@gmail.com" style="color: var(--navy-mid); font-weight: 600; text-decoration: none;">logicfutureacademy@gmail.com</a></p>
                     <p style="margin: 0;"><strong>📍 केंद्र स्थान:</strong><br>
-                    <span style="color: var(--text-muted);">Delhi (ऑनलाइन एवं व्यावहारिक प्रशिक्षण)</span></p>
+                    <span style="color: var(--text-muted);">पुणे, महाराष्ट्र (ऑनलाइन एवं व्यावहारिक प्रशिक्षण)</span></p>
                 </div>
 
                 <strong>🌐 सोशल मीडिया पेज (Official Social Links):</strong>
                 <div class="social-links-list">
-                    <a href="https://www.youtube.com/@Logic-Future-Academy" target="_blank" rel="noopener" class="social-btn">
-                        <span>▶️ YouTube Channel (@Logic-Future-Academy)</span>
+                    <a href="https://www.youtube.com/@amartomar700" target="_blank" rel="noopener" class="social-btn">
+                        <span>▶️ YouTube Channel (@amartomar700)</span>
                         <span>विज़िट करें ↗</span>
                     </a>
                     <a href="https://www.instagram.com/amartomar700" target="_blank" rel="noopener" class="social-btn">
-                        <span>📸 Instagram Page (@Logic-Future-Academy)</span>
+                        <span>📸 Instagram Page (@amartomar700)</span>
                         <span>विज़िट करें ↗</span>
                     </a>
-                   
-                                           </a>
                 </div>
             </section>
 
@@ -868,7 +866,7 @@
     
     <div style="margin-bottom: 20px; background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #cbd5e1;">
         <label><strong>छात्र का पूरा नाम / पंजीयन क्रमांक (Student Name / ID):</strong></label>
-        <input type="text" id="student-name" placeholder="उदाहरण: आरव शर्मा (ID-01)" style="margin-bottom: 0;">
+        <input type="text" id="student-name" placeholder="उदाहरण: आरव शर्मा (ID-01)" style="margin-bottom: 0;" onchange="saveStudentName()">
     </div>
 
     <div class="case-study-box">
@@ -920,6 +918,14 @@
         document.getElementById('landing-page').classList.remove('hidden');
         document.getElementById('quiz-section').classList.add('hidden');
         document.getElementById('portal-section').classList.add('hidden');
+    }
+
+    function saveStudentName() {
+        const name = document.getElementById('student-name').value.trim();
+        if (name) {
+            localStorage.setItem('studentName', name);
+            loadPeerTasks();
+        }
     }
 
     function acceptAndStart() {
@@ -1066,16 +1072,21 @@
 
     async function loadPeerTasks() {
         const container = document.getElementById('peer-reviews-container');
+        const currentUserName = document.getElementById('student-name').value.trim().toLowerCase();
         container.innerHTML = "<p>साथियों के जवाब लोड हो रहे हैं...</p>";
         try {
             const res = await fetch(SCRIPT_URL);
             const tasks = await res.json();
-            if (tasks.length === 0) {
-                container.innerHTML = "<p style='color:#64748b;'>अभी तक किसी साथी ने असाइनमेंट जमा नहीं किया है।</p>";
+            
+            // छात्र का अपना खुद का जवाब फ़िल्टर करके हटाना
+            const peerTasks = tasks.filter(t => t.studentName && t.studentName.trim().toLowerCase() !== currentUserName);
+
+            if (peerTasks.length === 0) {
+                container.innerHTML = "<p style='color:#64748b;'>अभी तक किसी अन्य साथी ने असाइनमेंट जमा नहीं किया है।</p>";
                 return;
             }
             container.innerHTML = "";
-            tasks.forEach((t, idx) => {
+            peerTasks.forEach((t, idx) => {
                 const card = document.createElement('div');
                 card.className = 'peer-card';
                 card.innerHTML = `
