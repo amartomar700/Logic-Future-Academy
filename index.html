@@ -540,6 +540,18 @@
             border-color: var(--navy);
             background: #f1f5f9;
         }
+        .option-btn.selected-correct {
+            border-color: var(--success);
+            background: #f0fdf4;
+            color: var(--success);
+            font-weight: 600;
+        }
+        .option-btn.selected-wrong {
+            border-color: var(--danger);
+            background: #fef2f2;
+            color: var(--danger);
+            font-weight: 600;
+        }
         .feedback {
             padding: 15px;
             border-radius: 6px;
@@ -557,6 +569,52 @@
             color: var(--danger);
             border: 1px solid #fca5a5;
         }
+
+        /* Result & Cooldown Cards */
+        .score-summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 22px 0;
+        }
+        .score-box {
+            padding: 16px 10px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1.5px solid #cbd5e1;
+        }
+        .score-box .num {
+            font-size: 28px;
+            font-weight: 700;
+            display: block;
+            line-height: 1.2;
+        }
+        .score-box .lbl {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+        .cooldown-banner {
+            background: #fef2f2;
+            border: 2px solid var(--danger);
+            color: var(--danger);
+            padding: 22px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .countdown-timer {
+            font-size: 22px;
+            font-weight: 700;
+            background: #ffffff;
+            color: var(--navy);
+            padding: 10px 18px;
+            border-radius: 6px;
+            border: 1px solid #fca5a5;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
         .student-id-card {
             background: linear-gradient(135deg, #0f294a 0%, #1e3a8a 100%);
             color: #ffffff;
@@ -609,6 +667,7 @@
             .hero-inner h2 { font-size: 23px; }
             .brand-title { font-size: 20px; }
             .charter-card, .section-block, .assessment-container, .auth-box { padding: 20px; }
+            .score-summary-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -618,7 +677,7 @@
 <div class="top-notice-bar">
     <div class="top-notice-inner">
         <span>📜 सत्यमेव जयते | वैज्ञानिक दृष्टिकोण, तार्किक शिक्षा एवं व्यावहारिक कौशल केंद्र</span>
-        <span class="status-pill">● प्रवेश सत्र 2026 सक्रिय</span>
+        <span class="status-pill">● प्रवेश सत्र 2026 सक्रिय (उत्तीर्णांक: 85%)</span>
     </div>
 </div>
 
@@ -652,7 +711,7 @@
         <div class="hero-inner">
             <span class="hero-tag">Critical Thinking & Technical Skill Academy</span>
             <h2>अंधविश्वास और भीड़ की सोच से बाहर निकलकर, तर्क और आधुनिक कौशल से अपना भविष्य बनाएं</h2>
-            <p>Logic Future Academy में हम पहले आपकी तार्किक सोच (Logical Thinking) की परीक्षा लेते हैं, और फिर आपको IT, AI कोडिंग, नेटवर्किंग और सिक्योरिटी सिस्टम्स जैसे वास्तविक कौशल सिखाते हैं।</p>
+            <p>Logic Future Academy में हम पहले आपकी तार्किक सोच (Logical Thinking) की परीक्षा लेते हैं (300 प्रश्नों के बैंक से 100 रैंडम प्रश्न), और 85% से अधिक अंक लाने पर आपको IT, AI कोडिंग, नेटवर्किंग और सिक्योरिटी सिस्टम्स जैसे वास्तविक कौशल सिखाते हैं।</p>
             <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
                 <a href="#admission-charter" class="btn-primary" style="background: var(--gold); border-color: var(--gold); text-decoration: none;">नया प्रवेश (100 प्रश्न परीक्षा) ↓</a>
                 <button onclick="openLoginView()" class="btn-primary" style="background: rgba(255,255,255,0.12); border-color: #ffffff;">पहले से पंजीकृत छात्र लॉगिन ➔</button>
@@ -681,7 +740,7 @@
         <!-- COURSES & SKILL TRAINING CATALOG -->
         <section id="courses-section" class="section-block">
             <h2 class="section-heading">अकादमी के प्रमुख पाठ्यक्रम (Courses & Technical Modules)</h2>
-            <p style="color: var(--text-muted); margin-top: 0;">सभी तकनीकी कोर्सेज में प्रवेश पाने के लिए पहले 100 प्रश्नों की तार्किक योग्यता परीक्षा उत्तीर्ण करना अनिवार्य है। आगे इस सूची में और भी नए व्यावहारिक विषय जोड़े जाएंगे।</p>
+            <p style="color: var(--text-muted); margin-top: 0;">सभी तकनीकी कोर्सेज में प्रवेश पाने के लिए पहले 100 प्रश्नों की तार्किक योग्यता परीक्षा में कम से कम <strong>85% अंक</strong> लाना अनिवार्य है।</p>
 
             <div class="course-category-title">💻 विभाग 1: IT, AI कोडिंग और सॉफ्टवेयर डेवलपमेंट</div>
             <div class="courses-grid">
@@ -768,15 +827,15 @@
             <div class="step-row">
                 <div class="step-badge">01</div>
                 <div>
-                    <strong>चरण 1: प्रवेश योग्यता मूल्यांकन (100 तार्किक प्रश्न)</strong>
-                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">सबसे पहले आपकी सोच और सही-गलत पहचानने की क्षमता की जांच 100 व्यावहारिक परिस्थितियों के माध्यम से की जाएगी।</p>
+                    <strong>चरण 1: प्रवेश योग्यता मूल्यांकन (300 प्रश्नों में से 100 रैंडम प्रश्न | 85% अनिवार्य)</strong>
+                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">हर छात्र को अलग-अलग 100 व्यावहारिक प्रश्न और शफल किए गए विकल्प मिलेंगे। 85% से कम अंक आने पर 7 दिनों के बाद ही पुनः परीक्षा दी जा सकेगी।</p>
                 </div>
             </div>
             <div class="step-row">
                 <div class="step-badge">02</div>
                 <div>
                     <strong>चरण 2: एकल छात्र ID एवं सुरक्षित पंजीकरण (1 Phone = 1 Account)</strong>
-                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">100 प्रश्न पूरे करने पर छात्र अपने मोबाइल नंबर और गुप्त कोड से अपनी स्थायी छात्र ID बनाएगा, ताकि कोई फेक अकाउंट न बन सके।</p>
+                    <p style="margin: 2px 0 0 0; color: var(--text-muted); font-size: 15px;">85% या अधिक अंक लाने पर छात्र अपने मोबाइल नंबर और गुप्त कोड से अपनी स्थायी छात्र ID बनाएगा, ताकि कोई फेक अकाउंट न बन सके।</p>
                 </div>
             </div>
             <div class="step-row" style="margin-bottom: 0;">
@@ -799,9 +858,9 @@
 
             <ol class="manifesto-list">
                 <li><strong>केवल तार्किक सोच वालों के लिए:</strong> यहाँ सिर्फ उन्हीं को प्रवेश मिलेगा जो तार्किक (Logical) सोच रखते हैं और सही व गलत के बीच स्पष्ट पहचान कर सकते हैं।</li>
-                <li><strong>आपकी अपनी मर्जी:</strong> यहाँ आना पूरी तरह आपकी अपनी मर्जी है, और यहाँ से जाना भी। अगर यहाँ आपको कोई भी सवाल खराब या असहज लगता है, तो आप इसे तुरंत छोड़ सकते हैं—यहाँ आपका कोई काम नहीं है।</li>
-                <li><strong>पाखंड और अंधविश्वास से दूरी:</strong> यह पोर्टल सिर्फ उनके लिए है जो सही फैसले लेना जानते हैं और अपना भविष्य बनाना चाहते हैं। समाज में चल रहे पाखंड और अंधविश्वास को छोड़कर ही यहाँ आएं। अगर आप इन सब बातों को मानते हैं, तो कृपया इस पोर्टल से दूर रहें।</li>
-                <li><strong>पहले परीक्षा, फिर मार्गदर्शन:</strong> पहले हम यह जांचेंगे कि आपकी सोच कैसी है। 100 प्रश्नों के इस पड़ाव को पार करने के बाद ही हम आपको सिखाएंगे और बताएंगे कि आप अपना भविष्य कैसे बना सकते हैं।</li>
+                <li><strong>85% उत्तीर्णांक एवं 7-दिन का नियम:</strong> 100 रैंडम प्रश्नों की परीक्षा में कम से कम <strong>85 सही उत्तर (85%)</strong> देना अनिवार्य है। यदि आप 85% से कम अंक लाते हैं, तो पोर्टल <strong>7 दिनों के लिए लॉक</strong> हो जाएगा ताकि आप अपनी सोच और अध्ययन पर काम कर सकें।</li>
+                <li><strong>पाखंड और अंधविश्वास से दूरी:</strong> यह पोर्टल सिर्फ उनके लिए है जो सही फैसले लेना जानते हैं और अपना भविष्य बनाना चाहते हैं। समाज में चल रहे पाखंड और अंधविश्वास को छोड़कर ही यहाँ आएं।</li>
+                <li><strong>पहले परीक्षा, फिर मार्गदर्शन:</strong> पहले हम यह जांचेंगे कि आपकी सोच कैसी है। इस पड़ाव को पार करने के बाद ही हम आपको सिखाएंगे और बताएंगे कि आप अपना भविष्य कैसे बना सकते हैं।</li>
                 <li><strong>आत्म-निर्भर समझ:</strong> इस प्रक्रिया से गुजरने के बाद आप खुद इस सच के करीब होंगे कि आपको अपने जीवन में क्या करना है—किसी के सहारे की जरूरत नहीं पड़ेगी।</li>
             </ol>
 
@@ -869,7 +928,7 @@
 </div>
 
 <!-- ========================================================= -->
-<!-- VIEW 2: 100 QUESTIONS ASSESSMENT                          -->
+<!-- VIEW 2: 100 RANDOM QUESTIONS ASSESSMENT                   -->
 <!-- ========================================================= -->
 <div id="quiz-section" class="assessment-container hidden">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -894,10 +953,49 @@
 </div>
 
 <!-- ========================================================= -->
-<!-- VIEW 2B: FIRST-TIME STUDENT REGISTRATION (100 Q PASSED)   -->
+<!-- VIEW 2A: FINAL SCOREBOARD & 7-DAY LOCKOUT SCREEN          -->
+<!-- ========================================================= -->
+<div id="result-section" class="assessment-container hidden">
+    <h2 id="result-heading" style="font-family: 'Noto Serif Devanagari', serif; margin-top: 0; text-align: center;">📊 परीक्षा परिणाम (Final Assessment Report)</h2>
+    
+    <div class="score-summary-grid">
+        <div class="score-box" style="background: #f0fdf4; border-color: #86efac;">
+            <span class="num" style="color: var(--success);" id="res-correct">0</span>
+            <span class="lbl">✅ कुल सही जवाब</span>
+        </div>
+        <div class="score-box" style="background: #fef2f2; border-color: #fca5a5;">
+            <span class="num" style="color: var(--danger);" id="res-wrong">0</span>
+            <span class="lbl">❌ कुल गलत जवाब</span>
+        </div>
+        <div class="score-box" style="background: #eff6ff; border-color: #93c5fd;">
+            <span class="num" style="color: var(--navy);" id="res-percent">0%</span>
+            <span class="lbl">📈 प्राप्त प्रतिशत (लक्ष्य: 85%)</span>
+        </div>
+    </div>
+
+    <!-- Pass State -->
+    <div id="result-pass-box" class="hidden" style="background: #f0fdf4; border: 2px solid var(--success); padding: 22px; border-radius: 8px; text-align: center;">
+        <h3 style="color: var(--success); margin-top: 0;">🎉 बधाई हो! आपने तार्किक योग्यता परीक्षा उत्तीर्ण कर ली है</h3>
+        <p style="margin-bottom: 18px; color: var(--text-main);">आपका स्कोर 85% से अधिक है। अब आप अपनी स्थायी छात्र ID बनाकर पोर्टल में प्रवेश कर सकते हैं।</p>
+        <button class="btn-primary" style="background: var(--success); border-color: var(--success);" onclick="proceedToRegistration()">आगे बढ़ें: स्थायी छात्र ID बनाएं ➔</button>
+    </div>
+
+    <!-- Fail / 7-Day Cooldown Lock State -->
+    <div id="result-fail-box" class="cooldown-banner hidden">
+        <h3 style="margin-top: 0;">🔒 प्रवेश अस्वीकृत — 7 दिनों का प्रतीक्षा समय (Cooldown Lock)</h3>
+        <p style="margin-bottom: 8px; color: var(--text-main);">पोर्टल अनलॉक करने के लिए कम से कम <strong>85% (85 सही जवाब)</strong> आवश्यक हैं। तार्किक सोच और तथ्यों की समझ को और मजबूत करने के लिए आपको <strong>7 दिनों</strong> का समय दिया जा रहा है।</p>
+        <div class="countdown-timer" id="cooldown-timer-text">शेष समय: 7 दिन 00 घंटे 00 मिनट</div>
+        <div style="margin-top: 18px;">
+            <button onclick="backToHome()" class="btn-primary">मुख्य पृष्ठ पर वापस जाएं</button>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- VIEW 2B: FIRST-TIME STUDENT REGISTRATION (85%+ PASSED)    -->
 <!-- ========================================================= -->
 <div id="register-section" class="auth-box hidden">
-    <h2 style="color: var(--success); font-family: 'Noto Serif Devanagari', serif; margin-top: 0;">🎉 100 प्रश्न पूरे हुए! अपनी छात्र ID बनाएं</h2>
+    <h2 style="color: var(--success); font-family: 'Noto Serif Devanagari', serif; margin-top: 0;">🎉 परीक्षा उत्तीर्ण! अपनी छात्र ID बनाएं</h2>
     <p style="font-size: 14.5px; color: var(--text-muted);">सुरक्षा और प्राइवेसी के लिए आपका मोबाइल नंबर और सीक्रेट कोड आपकी स्थायी पहचान होगी। एक मोबाइल नंबर से केवल एक ही अकाउंट बनेगा।</p>
     
     <label><strong>1. आपका पूरा नाम (स्थायी):</strong></label>
@@ -1005,16 +1103,30 @@
 
 <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyewTrYSdFgqaZvCkFdwRLOotlEf4OPhfhI7_p30xcFpF9nb_Pd1SQeMshTlQTk7ftOrw/exec";
+    const QUIZ_SIZE = 100; // कुल 300 में से हर छात्र को केवल 100 रैंडम सवाल मिलेंगे
+    const PASS_PERCENTAGE = 85;
+    const LOCK_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7 दिन (Milliseconds में)
 
-    let currentIndex = parseInt(localStorage.getItem('completedQuestions')) || 0;
-    const totalRequired = typeof questionsData !== 'undefined' ? questionsData.length : 100;
-
-    // लॉगिन किए हुए छात्र का डेटा
     let currentStudent = JSON.parse(localStorage.getItem('lfa_verified_student')) || null;
+    let activeQuiz = JSON.parse(localStorage.getItem('lfa_active_quiz_v2')) || null;
+    let currentShuffledOptions = [];
+    let currentCorrectOptionIndex = -1;
+    let cooldownInterval = null;
+
+    // Fisher-Yates Unbiased Shuffle Algorithm
+    function shuffleArray(array) {
+        const arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
 
     function hideAllViews() {
         document.getElementById('landing-page').classList.add('hidden');
         document.getElementById('quiz-section').classList.add('hidden');
+        document.getElementById('result-section').classList.add('hidden');
         document.getElementById('register-section').classList.add('hidden');
         document.getElementById('login-section').classList.add('hidden');
         document.getElementById('portal-section').classList.add('hidden');
@@ -1022,11 +1134,11 @@
 
     function init() {
         hideAllViews();
-        // मुख्य पेज हमेशा दिखेगा
         document.getElementById('landing-page').classList.remove('hidden');
     }
 
     function backToHome() {
+        if (cooldownInterval) clearInterval(cooldownInterval);
         hideAllViews();
         document.getElementById('landing-page').classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1042,6 +1154,49 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // जाँचें कि क्या छात्र पर 7-दिन का लॉक लगा हुआ है
+    function checkCooldownLock() {
+        const lockUntil = parseInt(localStorage.getItem('lfa_lock_until')) || 0;
+        const now = Date.now();
+        if (lockUntil > now) {
+            return lockUntil - now;
+        }
+        if (lockUntil > 0 && lockUntil <= now) {
+            localStorage.removeItem('lfa_lock_until');
+            localStorage.removeItem('lfa_last_result');
+        }
+        return 0;
+    }
+
+    function showCooldownScreen() {
+        hideAllViews();
+        document.getElementById('result-section').classList.remove('hidden');
+        document.getElementById('result-pass-box').classList.add('hidden');
+        document.getElementById('result-fail-box').classList.remove('hidden');
+
+        const lastRes = JSON.parse(localStorage.getItem('lfa_last_result')) || { correct: 0, wrong: 100, percent: 0 };
+        document.getElementById('res-correct').innerText = lastRes.correct;
+        document.getElementById('res-wrong').innerText = lastRes.wrong;
+        document.getElementById('res-percent').innerText = `${lastRes.percent}%`;
+
+        if (cooldownInterval) clearInterval(cooldownInterval);
+        const updateTimer = () => {
+            const remaining = checkCooldownLock();
+            if (remaining <= 0) {
+                clearInterval(cooldownInterval);
+                document.getElementById('cooldown-timer-text').innerText = "✅ प्रतीक्षा समय पूरा हुआ! अब आप पुनः परीक्षा दे सकते हैं।";
+                return;
+            }
+            const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((remaining % (1000 * 60)) / 1000);
+            document.getElementById('cooldown-timer-text').innerText = `शेष समय: ${days} दिन ${hours} घंटे ${mins} मिनट ${secs} सेकंड`;
+        };
+        updateTimer();
+        cooldownInterval = setInterval(updateTimer, 1000);
+    }
+
     function acceptAndStart() {
         const isChecked = document.getElementById('agree-checkbox').checked;
         if (!isChecked) {
@@ -1049,14 +1204,26 @@
             return;
         }
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
         if (currentStudent) {
             unlockPortal();
-        } else if (currentIndex >= totalRequired) {
+            return;
+        }
+
+        // पहले 7-दिन का लॉक चेक करें
+        if (checkCooldownLock() > 0) {
+            showCooldownScreen();
+            return;
+        }
+
+        // यदि पहले ही 85%+ पास कर चुका है और रजिस्ट्रेशन बाकी है
+        if (localStorage.getItem('lfa_quiz_passed') === 'true') {
             hideAllViews();
             document.getElementById('register-section').classList.remove('hidden');
-        } else {
-            startQuiz();
+            return;
         }
+
+        startQuiz();
     }
 
     function exitPortal() {
@@ -1070,16 +1237,43 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    function createNewRandomQuizSession() {
+        if (typeof questionsData === 'undefined' || !Array.isArray(questionsData) || questionsData.length === 0) {
+            alert("प्रश्न बैंक लोड नहीं हो सका। कृपया पेज रिफ्रेश करें।");
+            return null;
+        }
+        const totalPool = questionsData.length;
+        const indices = Array.from({ length: totalPool }, (_, i) => i);
+        const selectedIndices = shuffleArray(indices).slice(0, Math.min(QUIZ_SIZE, totalPool));
+
+        const session = {
+            questionIndices: selectedIndices,
+            currentIndex: 0,
+            correctCount: 0,
+            wrongCount: 0
+        };
+        localStorage.setItem('lfa_active_quiz_v2', JSON.stringify(session));
+        return session;
+    }
+
     function startQuiz() {
+        if (!activeQuiz || !activeQuiz.questionIndices || activeQuiz.currentIndex >= activeQuiz.questionIndices.length) {
+            activeQuiz = createNewRandomQuizSession();
+        }
+        if (!activeQuiz) return;
+
         hideAllViews();
         document.getElementById('quiz-section').classList.remove('hidden');
         loadQuestion();
     }
 
     function loadQuestion() {
-        const q = questionsData[currentIndex];
-        document.getElementById('q-counter').innerText = `प्रश्न ${currentIndex + 1} / ${totalRequired}`;
-        document.getElementById('progress').style.width = `${(currentIndex / totalRequired) * 100}%`;
+        const totalQ = activeQuiz.questionIndices.length;
+        const actualQuestionIndex = activeQuiz.questionIndices[activeQuiz.currentIndex];
+        const q = questionsData[actualQuestionIndex];
+
+        document.getElementById('q-counter').innerText = `प्रश्न ${activeQuiz.currentIndex + 1} / ${totalQ}`;
+        document.getElementById('progress').style.width = `${(activeQuiz.currentIndex / totalQ) * 100}%`;
         document.getElementById('story-text').innerText = q.story;
         document.getElementById('question-text').innerText = q.question;
         
@@ -1088,44 +1282,110 @@
         document.getElementById('feedback-box').style.display = 'none';
         document.getElementById('next-btn').classList.add('hidden');
 
-        q.options.forEach((opt, idx) => {
+        // हर सवाल के विकल्पों (Options) को पूरी तरह रैंडम शफल करें ताकि बॉट या पैटर्न काम न करे
+        const mappedOptions = q.options.map((text, origIdx) => ({
+            text: text,
+            isCorrect: origIdx === q.correct
+        }));
+        currentShuffledOptions = shuffleArray(mappedOptions);
+        currentCorrectOptionIndex = currentShuffledOptions.findIndex(o => o.isCorrect);
+
+        const labels = ["A", "B", "C", "D"];
+        currentShuffledOptions.forEach((optObj, idx) => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(idx);
+            btn.innerText = `${labels[idx] || (idx + 1)}. ${optObj.text}`;
+            btn.onclick = () => handleAnswer(idx);
             optionsDiv.appendChild(btn);
         });
     }
 
-    function checkAnswer(selectedIndex) {
-        const q = questionsData[currentIndex];
+    function handleAnswer(selectedIndex) {
+        const actualQuestionIndex = activeQuiz.questionIndices[activeQuiz.currentIndex];
+        const q = questionsData[actualQuestionIndex];
         const feedbackBox = document.getElementById('feedback-box');
+        const allButtons = document.querySelectorAll('.option-btn');
+
+        // सभी बटन लॉक करें ताकि एक सवाल पर दोबारा क्लिक न हो
+        allButtons.forEach((b, idx) => {
+            b.disabled = true;
+            if (idx === currentCorrectOptionIndex) {
+                b.classList.add('selected-correct');
+            }
+        });
+
         feedbackBox.style.display = 'block';
 
-        if (selectedIndex === q.correct) {
+        if (selectedIndex === currentCorrectOptionIndex) {
+            activeQuiz.correctCount++;
             feedbackBox.className = 'feedback correct';
-            feedbackBox.innerText = `✅ बिल्कुल सही तर्क! ${q.hint}`;
-            document.getElementById('next-btn').classList.remove('hidden');
-            document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+            feedbackBox.innerText = `✅ सही तर्क! ${q.hint}`;
         } else {
+            activeQuiz.wrongCount++;
+            allButtons[selectedIndex].classList.add('selected-wrong');
             feedbackBox.className = 'feedback wrong';
-            feedbackBox.innerText = `❌ यह दृष्टिकोण तार्किक नहीं है। पुनः विचार करें: ${q.hint}`;
+            feedbackBox.innerText = `❌ यह उत्तर तार्किक नहीं है। सही समझ: ${q.hint}`;
         }
+
+        // प्रोग्रेस सेव करें और गलत जवाब पर भी आगे बढ़ने का बटन दिखाएं
+        localStorage.setItem('lfa_active_quiz_v2', JSON.stringify(activeQuiz));
+        const nextBtn = document.getElementById('next-btn');
+        nextBtn.innerText = (activeQuiz.currentIndex + 1 >= activeQuiz.questionIndices.length)
+            ? "अंतिम परिणाम देखें (View Final Score) ➔"
+            : "अगला प्रश्न ➔";
+        nextBtn.classList.remove('hidden');
     }
 
     function nextQuestion() {
-        currentIndex++;
-        localStorage.setItem('completedQuestions', currentIndex);
-        if (currentIndex >= totalRequired) {
-            hideAllViews();
-            if (currentStudent) {
-                unlockPortal();
-            } else {
-                document.getElementById('register-section').classList.remove('hidden');
-            }
+        activeQuiz.currentIndex++;
+        const totalQ = activeQuiz.questionIndices.length;
+
+        if (activeQuiz.currentIndex >= totalQ) {
+            finishQuiz();
         } else {
+            localStorage.setItem('lfa_active_quiz_v2', JSON.stringify(activeQuiz));
             loadQuestion();
         }
+    }
+
+    function finishQuiz() {
+        const totalQ = activeQuiz.questionIndices.length;
+        const correct = activeQuiz.correctCount;
+        const wrong = activeQuiz.wrongCount;
+        const percent = Math.round((correct / totalQ) * 100);
+
+        // एक्टिव क्विज़ क्लियर करें
+        localStorage.removeItem('lfa_active_quiz_v2');
+        activeQuiz = null;
+
+        hideAllViews();
+        document.getElementById('result-section').classList.remove('hidden');
+        document.getElementById('res-correct').innerText = correct;
+        document.getElementById('res-wrong').innerText = wrong;
+        document.getElementById('res-percent').innerText = `${percent}%`;
+
+        if (percent >= PASS_PERCENTAGE) {
+            localStorage.setItem('lfa_quiz_passed', 'true');
+            document.getElementById('result-pass-box').classList.remove('hidden');
+            document.getElementById('result-fail-box').classList.add('hidden');
+        } else {
+            // 85% से कम आने पर 7 दिन का लॉक लगाएं
+            const lockUntil = Date.now() + LOCK_DURATION_MS;
+            localStorage.setItem('lfa_lock_until', String(lockUntil));
+            localStorage.setItem('lfa_last_result', JSON.stringify({ correct, wrong, percent }));
+            showCooldownScreen();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function proceedToRegistration() {
+        hideAllViews();
+        if (currentStudent) {
+            unlockPortal();
+        } else {
+            document.getElementById('register-section').classList.remove('hidden');
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // नया छात्र पंजीकरण (1 Mobile = 1 Account)
@@ -1221,12 +1481,10 @@
         hideAllViews();
         document.getElementById('portal-section').classList.remove('hidden');
 
-        // लॉक की गई पहचान दिखाएं
         const maskedPhone = currentStudent.phone.slice(0, 2) + "******" + currentStudent.phone.slice(-2);
         document.getElementById('display-student-name').innerText = currentStudent.fullName;
         document.getElementById('display-student-meta').innerText = `छात्र ID: ${currentStudent.studentId} | मोबाइल: ${maskedPhone}`;
 
-        // जांचें कि क्या आज असाइनमेंट पहले ही जमा हो चुका है
         const todayKey = `task_done_${currentStudent.studentId}_${new Date().toDateString()}`;
         if (localStorage.getItem(todayKey) === 'true') {
             document.getElementById('task-input-area').classList.add('hidden');
@@ -1280,7 +1538,7 @@
         btn.disabled = false; btn.innerText = "असाइनमेंट स्थायी रूप से जमा करें";
     }
 
-    // केवल अन्य साथियों के जवाब लोड करना (अपना खुद का जवाब छिपाना)
+    // केवल अन्य साथियों के जवाब लोड करना
     async function loadPeerTasks() {
         if (!currentStudent) return;
         const container = document.getElementById('peer-reviews-container');
@@ -1290,7 +1548,6 @@
             const res = await fetch(SCRIPT_URL);
             const tasks = await res.json();
 
-            // अपनी ID वाले जवाब को फ़िल्टर करके हटाना
             const peerTasks = tasks.filter(t => t.studentId && String(t.studentId).trim() !== currentStudent.studentId);
 
             if (peerTasks.length === 0) {
